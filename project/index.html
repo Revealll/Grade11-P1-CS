@@ -1,0 +1,43 @@
+<html>
+    <body>
+        <h2>
+            Battle Game!
+        </h2>
+        <h4 id="header"></h4>
+        <p id="player2"></p>
+        <p id="characterList"></p>
+        <img id="picture" width="300" height="200"><p> 
+        
+        <button type="button" id="previous" onclick="showPreviousCharacter();">
+            Previous Character
+        </button>
+        
+        <button type="button" id="next" onclick="showNextCharacter();">
+            Next Character
+        </button>
+       
+        <button type="button" id="select" onclick="selectCharacter();">
+            Select Character
+        </button>
+
+        <p id="player1"></p>
+        
+        <img id="picture2" width="300" height="200" hidden="true"><p>
+        
+        <p id="wordTyped"></p>
+        <p id="wordLeft"></p>
+        
+        <label for="textbox" id="label" hidden="true"> Type Here: </label>
+        <input type="text" id="type" hidden="true"/>
+
+        <button type="button" id="normal" onclick="normalAttack(oppositeIndex);" hidden="true">
+            Normal  
+        </button> 
+
+        <button type="button" id="special" onclick="specialAttack(oppositeIndex);" hidden="true">
+            Special
+        </button> 
+
+        <script src="scripts/main.js"></script>
+    </body>
+</html>
