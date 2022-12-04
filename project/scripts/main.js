@@ -18,7 +18,7 @@ const SPECIAL = document.getElementById("special");
 
 const TYPED = document.getElementById("wordsTyped");
 const LEFT = document.getElementById("wordsLeft");
-
+const WORD = document.getElementById("wordShowed");
 const NUMBER_OF_CHARACTERS = 2;
 const CHARACTER_ONE = 0;
 const CHARACTER_TWO = 1;
@@ -38,45 +38,54 @@ let currentIndex = 0;
 
 let selectedIndex;
 
+let randomIndex;    
+
+let firstLetter;
+
 
 start();
+setInterval(update, 20)
+  
+
+function update() {
+    if (TYPE.value > 0) {
+        getStringFront(firstLetter);
+        
+    } 
+    
+}
+
 function start() {
     createCharacter();
     displayCharacter(CHARACTER_ONE);
     showImage();
 }   
 
-function createRandom(min, max) {
-    
+function createWord() {
+    firstLetter = words[createRandom(0, words.length)]
+    WORD.innerText = firstLetter;
 }
 
-function randomNumber() {
-    randomNumber = randomNumber = Math.floor(Math.random()*20) + 1;
-    return randomNumber
+function createRandom(min, max) {
+    randomNumber = Math.floor(Math.random()*max) + min;
+    return randomNumber;
 }
+
 
 function getStringFront(string) {
-    let input = TYPE.value;
-
+    let result = string.substring(0, 1)
+    return result 
 }
 
 
 function normalAttack(input) {
-    if (currentIndex == 0) {
-        oppositeIndex = 1
-    }
-    else {
-        oppositeIndex = 0;
-    } 
-    health[input] = health[input] - normal[currentIndex];
-    
-    showPlayerInfo();
+    createWord();
 }
 
 
 
 function specialAttack(input) {
-    
+    createWord();
     if (currentIndex == 0) {
         oppositeIndex = 1;
     }
@@ -155,8 +164,8 @@ function displayCharacter(currentIndex) {
 
 function showImage() {           
     P_PICTURE.src = image[currentIndex];
-    P_PICTURE.width = 300;
-    P_PICTURE.height = 200;
+    P_PICTURE.width = 225;
+    P_PICTURE.height = 150;
     
 }
 
@@ -175,25 +184,25 @@ function createCharacter() {
     image[CHARACTER_TWO] = "boy.jpg";
     paragraphs[CHARACTER_TWO] = P_PLAYER2;
 
-    words[1] = "to"
-    words[2] = "hi"
-    words[3] = "bro"
-    words[4] = "the"
-    words[5] = "she"
-    words[6] = "food"
-    words[7] = "army"
-    words[8] = "baby"
-    words[9] = "paper"
-    words[10] = "shelf"
-    words[11] = "space"
-    words[12] = "iphone"
-    words[13] = "action"
-    words[14] = "account"
-    words[15] = "ability"
-    words[16] = "accuracy"
-    words[17] = "technique"
-    words[18] = "paralyzed"
-    words[19] = "appreciate"
-    words[20] = "friendship"     
+    words[0] = "to"
+    words[1] = "hi"
+    words[2] = "bro"
+    words[3] = "the"
+    words[4] = "she"
+    words[5] = "food"
+    words[6] = "army"
+    words[7] = "baby"
+    words[8] = "paper"
+    words[9] = "shelf"
+    words[10] = "space"
+    words[11] = "iphone"
+    words[12] = "action"
+    words[13] = "account"
+    words[14] = "ability"
+    words[15] = "accuracy"
+    words[16] = "technique"
+    words[17] = "paralyzed"
+    words[18] = "appreciate"
+    words[19] = "friendship"     
 
 }
