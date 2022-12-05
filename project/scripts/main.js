@@ -16,7 +16,7 @@ const LABEL = document.getElementById("label");
 const NORMAL = document.getElementById("normal");
 const SPECIAL = document.getElementById("special");
 
-const TYPED = document.getElementById("wordsTyped");
+const TYPED = document.getElementById("wordTyped")
 const LEFT = document.getElementById("wordsLeft");
 const WORD = document.getElementById("wordShowed");
 const NUMBER_OF_CHARACTERS = 2;
@@ -40,18 +40,19 @@ let selectedIndex;
 
 let randomIndex;    
 
-let firstLetter;
+let currentWord;
 
+let letter;
 
+let newWord;
 start();
 setInterval(update, 20)
   
 
 function update() {
-    if (TYPE.value > 0) {
-        getStringFront(firstLetter);
-        
-    } 
+    if (TYPE.value.length > 0) {
+        textRacer();
+    }
     
 }
 
@@ -61,9 +62,23 @@ function start() {
     showImage();
 }   
 
+function textRacer() {
+
+    letter = getStringFront(currentWord)
+    let ya = TYPE.value
+    if (ya == currentWord) {
+        normalAttack(oppositeIndex)
+        TYPE.value = ""
+        WORD.innerText = ""
+        currentWord = null;
+        TYPE.disabled = true;
+    }
+}
+
 function createWord() {
-    firstLetter = words[createRandom(0, words.length)]
-    WORD.innerText = firstLetter;
+    currentWord = words[createRandom(0, words.length)]
+    WORD.innerText = currentWord;
+    TYPE.disabled = false;
 }
 
 function createRandom(min, max) {
@@ -79,9 +94,19 @@ function getStringFront(string) {
 
 
 function normalAttack(input) {
-    createWord();
+    letter = getStringFront(currentWord)
+    if (TYPE.value == currentWord) {
+        if (currentIndex == 0) {
+            oppositeIndex = 1;
+        }
+        else {
+            oppositeIndex = 0;
+            
+        } 
+        health[input] = health[input] - normal[currentIndex] * ((randomNumber + 2)/2);
+        showPlayerInfo();
+    }
 }
-
 
 
 function specialAttack(input) {
@@ -92,7 +117,7 @@ function specialAttack(input) {
     else {
         oppositeIndex = 0;
     } 
-    health[input] = health[input] - special[currentIndex];
+    health[input] = health[input] - special[currentIndex] * ((randomNumber + 2)/2);
     
     showPlayerInfo();
 } 
@@ -111,8 +136,6 @@ function selectCharacter() {
     
     P_CHARACTER_LIST.innerText = "";
     showPlayerInfo();
-
-
 }
 
 function showPlayerInfo() {
