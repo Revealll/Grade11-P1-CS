@@ -38,16 +38,16 @@ let currentIndex = 0;
 
 let selectedIndex;
 
-let randomIndex;    
+let attackIndex;    
 
 let currentWord;
 
-let letter;
+let firstLetter;
 
-let newWord;
+let backWord;
 start();
 setInterval(update, 20)
-  
+
 
 function update() {
     if (TYPE.value.length > 0) {
@@ -58,29 +58,83 @@ function update() {
 
 function start() {
     createCharacter();
+    createWords();
     displayCharacter(CHARACTER_ONE);
     showImage();
+    
 }   
 
 function textRacer() {
 
-    letter = getStringFront(currentWord)
-    let ya = TYPE.value
-    if (ya == currentWord) {
-        normalAttack(oppositeIndex)
-        TYPE.value = ""
-        WORD.innerText = ""
-        currentWord = null;
+    firstLetter = getStringFront(currentWord)
+    backWord = getStringBack(currentWord);
+    
+    let letter2 = currentWord.substring(0, 2)
+    let letter3 = currentWord.substring(0, 3)
+    let letter4 = currentWord.substring(0, 4)
+    let letter5 = currentWord.substring(0, 5)
+    let letter6 = currentWord.substring(0, 6)
+    let letter7 = currentWord.substring(0, 7)
+    let letter8 = currentWord.substring(0, 8)
+    let letter9 = currentWord.substring(0, 9)
+    let letter10 = currentWord.substring(0, 10)        
+    let text = TYPE.value;
+    
+    if (firstLetter == text) {
+        TYPED.innerText = firstLetter;
+    }
+    if (letter2 == text) {
+        TYPED.innerText = letter2;
+    }
+    if (letter3 == text) {
+        TYPED.innerText = letter3;
+    }
+    if (letter4 == text) {
+        TYPED.innerText = letter4;
+    }
+    if (letter5 == text) {
+        TYPED.innerText = letter5;
+    }
+    if (letter6 == text) {
+        TYPED.innerText = letter6;
+    }
+    if (letter7 == text) {
+        TYPED.innerText = letter7;
+    }
+    if (letter8 == text) {
+        TYPED.innerText = letter8;
+    }
+    if (letter9 == text) {
+        TYPED.innerText = letter9;
+    }
+    if (letter10 == text) {
+        TYPED.innerText = letter10;
+    }
+    
+    if (text == currentWord) {
+        normalAttack(oppositeIndex);
+        specialAttack(oppositeIndex);
+        TYPE.value = "";
+        WORD.innerText = "";
+        TYPED.innerText = "";
         TYPE.disabled = true;
     }
 }
 
-function createWord() {
-    currentWord = words[createRandom(0, words.length)]
+function createWordNormal() {
+    attackIndex = 0;
+    currentWord = words[createRandom(0, words.length)];
     WORD.innerText = currentWord;
     TYPE.disabled = false;
 }
 
+function createWordSpecial() {
+    attackIndex = 1;
+    currentWord = words[createRandom(0, words.length)];
+    WORD.innerText = currentWord;
+    TYPE.disabled = false;
+
+}
 function createRandom(min, max) {
     randomNumber = Math.floor(Math.random()*max) + min;
     return randomNumber;
@@ -89,38 +143,55 @@ function createRandom(min, max) {
 
 function getStringFront(string) {
     let result = string.substring(0, 1)
-    return result 
+    return result; 
+}
+
+function getStringBack(string) {
+    let result2 = string.substring(1, string.length);
+    return result2;
 }
 
 
 function normalAttack(input) {
-    letter = getStringFront(currentWord)
-    if (TYPE.value == currentWord) {
+    if (attackIndex == 0) {
         if (currentIndex == 0) {
-            oppositeIndex = 1;
+                oppositeIndex = 1;
+            }
+            else {
+                oppositeIndex = 0;
+            } 
+            health[input] = health[input] - (Math.floor(Math.random() * (normal[currentIndex] * (randomNumber + 2) / 2)) + normal[currentIndex]);
+            showPlayerInfo();
         }
-        else {
-            oppositeIndex = 0;
-            
-        } 
-        health[input] = health[input] - normal[currentIndex] * ((randomNumber + 2)/2);
-        showPlayerInfo();
-    }
 }
 
-
-function specialAttack(input) {
-    createWord();
+function computerNormal(input) {
     if (currentIndex == 0) {
         oppositeIndex = 1;
     }
     else {
         oppositeIndex = 0;
-    } 
-    health[input] = health[input] - special[currentIndex] * ((randomNumber + 2)/2);
-    
+    }
+    let randomNum = Math.floor(Math.random() * 20) 
+    health[currentIndex] = health[currentIndex] - (Math.floor(Math.random() * (normal[oppositeIndex] * (randomNum + 2)/2)) + normal[oppositeIndex]); 
     showPlayerInfo();
-} 
+}
+
+
+
+function specialAttack(input) {
+    if (attackIndex == 1) {
+        if (currentIndex == 0) {
+                oppositeIndex = 1;
+            }
+            else {
+                oppositeIndex = 0;  
+            } 
+            health[input] = health[input] - (Math.floor(Math.random() * (special[currentIndex] * (randomNumber + 2) / 2)) + special[currentIndex]);
+            showPlayerInfo();
+        }
+}
+ 
 
 function selectCharacter() {
     B_PREVIOUS.hidden = true;
@@ -205,8 +276,10 @@ function createCharacter() {
     normal[CHARACTER_TWO] = 6;
     special[CHARACTER_TWO] = 75; 
     image[CHARACTER_TWO] = "boy.jpg";
-    paragraphs[CHARACTER_TWO] = P_PLAYER2;
+    paragraphs[CHARACTER_TWO] = P_PLAYER2;     
+}
 
+function createWords() {
     words[0] = "to"
     words[1] = "hi"
     words[2] = "bro"
@@ -226,6 +299,5 @@ function createCharacter() {
     words[16] = "technique"
     words[17] = "paralyzed"
     words[18] = "appreciate"
-    words[19] = "friendship"     
-
+    words[19] = "friendship" 
 }
