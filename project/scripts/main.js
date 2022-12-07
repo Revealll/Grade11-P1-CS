@@ -17,13 +17,11 @@ const NORMAL = document.getElementById("normal");
 const SPECIAL = document.getElementById("special");
 
 const TYPED = document.getElementById("wordTyped")
-const LEFT = document.getElementById("wordsLeft");
+const LEFT = document.getElementById("wordLeft");
 const WORD = document.getElementById("wordShowed");
 const NUMBER_OF_CHARACTERS = 2;
 const CHARACTER_ONE = 0;
 const CHARACTER_TWO = 1;
-
-let oppositeIndex;
 
 let names = new Array(NUMBER_OF_CHARACTERS);
 let health = new Array(NUMBER_OF_CHARACTERS);
@@ -36,24 +34,25 @@ let words = new Array(20);
 
 let currentIndex = 0;
 
-let selectedIndex;
+let oppositeIndex;
 
 let attackIndex;    
 
 let currentWord;
 
-let firstLetter;
+let selectedValue;
 
-let backWord;
+let normalTimer;
+
+let specialTimer;
 start();
-setInterval(update, 20)
-
+setInterval(update, 20);
 
 function update() {
-    if (TYPE.value.length > 0) {
-        textRacer();
+    if (selectedValue == 1) {
+        typeChecker();
+        
     }
-    
 }
 
 function start() {
@@ -64,10 +63,10 @@ function start() {
     
 }   
 
-function textRacer() {
+function typeChecker() {
 
-    firstLetter = getStringFront(currentWord)
-    backWord = getStringBack(currentWord);
+    let firstLetter = getStringFront(currentWord)
+    let backWord = getStringBack(currentWord);
     
     let letter2 = currentWord.substring(0, 2)
     let letter3 = currentWord.substring(0, 3)
@@ -79,36 +78,53 @@ function textRacer() {
     let letter9 = currentWord.substring(0, 9)
     let letter10 = currentWord.substring(0, 10)        
     let text = TYPE.value;
-    
+    if (text == 0) {
+        TYPED.innerText = "Correct Letters: "
+        LEFT.innerText = "Letters Needed: " + firstLetter + backWord;
+        
+    }
     if (firstLetter == text) {
-        TYPED.innerText = firstLetter;
+        TYPED.innerText = "Correct Letters: " + firstLetter;
+        LEFT.innerText = "Letters Needed: " + backWord;
+        
     }
     if (letter2 == text) {
-        TYPED.innerText = letter2;
+        TYPED.innerText = "Correct Letters: " + letter2;
+        LEFT.innerText = "Letters Needed: " + backWord.slice(1);
+        
     }
     if (letter3 == text) {
-        TYPED.innerText = letter3;
+        TYPED.innerText = "Correct Letters: " + letter3;
+        LEFT.innerText = "Letters Needed: " + backWord.slice(2);
+
     }
     if (letter4 == text) {
-        TYPED.innerText = letter4;
-    }
+        TYPED.innerText = "Correct Letters: " + letter4;
+        LEFT.innerText = "Letters Needed: " + backWord.slice(3)
+    };
     if (letter5 == text) {
-        TYPED.innerText = letter5;
+        TYPED.innerText = "Correct Letters: " + letter5;
+        LEFT.innerText = "Letters Needed: " + backWord.slice(4)
     }
     if (letter6 == text) {
-        TYPED.innerText = letter6;
+        TYPED.innerText = "Correct Letters: " + letter6;
+        LEFT.innerText = "Letters Needed: " + backWord.slice(5)
     }
     if (letter7 == text) {
-        TYPED.innerText = letter7;
+        TYPED.innerText = "Correct Letters: " + letter7;
+        LEFT.innerText = "Letters Needed: " + backWord.slice(6)
     }
     if (letter8 == text) {
-        TYPED.innerText = letter8;
+        TYPED.innerText = "Correct Letters: " + letter8;
+        LEFT.innerText = "Letters Needed: " + backWord.slice(7)
     }
     if (letter9 == text) {
-        TYPED.innerText = letter9;
+        TYPED.innerText = "Correct Letters: " + letter9;
+        LEFT.innerText = "Letters Needed: " + backWord.slice(8)
     }
     if (letter10 == text) {
-        TYPED.innerText = letter10;
+        TYPED.innerText = "Correct Letters: " + letter10;
+        LEFT.innerText = "Letters Needed: " + backWord.slice(9)
     }
     
     if (text == currentWord) {
@@ -118,22 +134,32 @@ function textRacer() {
         WORD.innerText = "";
         TYPED.innerText = "";
         TYPE.disabled = true;
+        selectedValue = 0;
     }
 }
 
 function createWordNormal() {
+    selectedValue = 1;
     attackIndex = 0;
     currentWord = words[createRandom(0, words.length)];
-    WORD.innerText = currentWord;
+    WORD.innerText = "Type " + currentWord;
     TYPE.disabled = false;
 }
 
+
 function createWordSpecial() {
+    selectedValue = 1;
     attackIndex = 1;
     currentWord = words[createRandom(0, words.length)];
-    WORD.innerText = currentWord;
+    WORD.innerText = "Type: " + currentWord;
     TYPE.disabled = false;
+    SPECIAL.disabled = true;
+    setInterval(enableSpecial, 15000);
+    
+}
 
+function enableSpecial() {
+    SPECIAL.disabled = false;
 }
 function createRandom(min, max) {
     randomNumber = Math.floor(Math.random()*max) + min;
@@ -165,7 +191,7 @@ function normalAttack(input) {
         }
 }
 
-function computerNormal(input) {
+function computerNormal() {
     if (currentIndex == 0) {
         oppositeIndex = 1;
     }
@@ -177,6 +203,22 @@ function computerNormal(input) {
     showPlayerInfo();
 }
 
+function computerAutoNormal() {
+    computerNormal();
+    computerNormal();
+}
+
+function computerSpecial() {
+    if (currentIndex == 0) {
+        oppositeIndex = 1;
+    }
+    else {
+        oppositeIndex = 0;
+    }
+    let randomNum = Math.floor(Math.random() * 20) 
+    health[currentIndex] = health[currentIndex] - (Math.floor(Math.random() * (special[oppositeIndex] * (randomNum + 2)/2)) + special[oppositeIndex]); 
+    showPlayerInfo();
+}
 
 
 function specialAttack(input) {
@@ -194,6 +236,11 @@ function specialAttack(input) {
  
 
 function selectCharacter() {
+    gameScreen();
+    showPlayerInfo();
+}
+
+function gameScreen() {
     B_PREVIOUS.hidden = true;
     B_NEXT.hidden = true;
     B_SELECT.hidden = true;
@@ -206,7 +253,9 @@ function selectCharacter() {
     H_HEADER.innerText = "Battle To The Death!";
     
     P_CHARACTER_LIST.innerText = "";
-    showPlayerInfo();
+
+    normalTimer = setInterval(computerAutoNormal, 5000);
+    specialTimer = setInterval(computerSpecial, 15000);
 }
 
 function showPlayerInfo() {
@@ -251,9 +300,9 @@ function showPreviousCharacter() {
 }
 
 
-function displayCharacter(currentIndex) {
+function displayCharacter(index) {
     H_HEADER.innerText = "Choose your Character!";
-    P_CHARACTER_LIST.innerText = "CURRENT CHARACTER: " + names[currentIndex] + "\n" + "Maximum Health: " + health[currentIndex] + "\n" + "Normal Attack: " + normal[currentIndex] + "\n" + "Special Attack: " + special[currentIndex];
+    P_CHARACTER_LIST.innerText = "CURRENT CHARACTER: " + names[index] + "\n" + "Maximum Health: " + health[index] + "\n" + "Normal Attack: " + normal[index] + "\n" + "Special Attack: " + special[index];
 }
 
 function showImage() {           
@@ -279,6 +328,16 @@ function createCharacter() {
     paragraphs[CHARACTER_TWO] = P_PLAYER2;     
 }
 
+function checkGameOver() {
+    if (health[CHARACTER_ONE] <= 0) {
+        alert("Game Over!");
+        NORMAL.disabled = true;
+        SPECIAL.disabled = true;
+        TYPE.disabled = true;
+        clearInterval(normalTimer);
+        clearInterval(specialTimer);
+    }
+}
 function createWords() {
     words[0] = "to"
     words[1] = "hi"
