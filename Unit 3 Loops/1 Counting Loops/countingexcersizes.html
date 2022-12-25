@@ -1,0 +1,57 @@
+<html>
+    <body>
+        <label for="textbox"> Number 1 </label>
+        <input type="text" id="text1"/>
+
+        <label for="textbox"> Number 2 </label>
+        <input type="text" id="text2"/>
+
+        <p id="info"></p>
+        <button type="button" onclick="showInfo();">
+            Press Me 
+        </button>
+
+        <br >
+
+        <label for="textbox"> Number 1 </label>
+        <input type="text" id="text3"/>
+
+        <label for="textbox"> Difference </label>
+        <input type="text" id="difference"/>
+
+        <label for="textbox"> Number of numbers </label>
+        <input type="text" id="number"/>
+        
+        <button type="button" onclick="showInfo2();">
+            Press me 2 
+        </button>
+
+        <p id="info2"></p>
+        <script>
+            function showInfo2() {
+                let number1 = Number(document.getElementById("text3").value);
+                let number = Number(document.getElementById("number").value);
+                let diff = Number(document.getElementById("difference").value);
+                for (let count = 0; count < number; count ++ ) {
+                    document.getElementById("info2").innerText += (number1 + (diff * count)) + "\n";
+                }
+            }
+
+            function showInfo() {
+                let number1 = Number(document.getElementById("text1").value);
+                let number2 = Number(document.getElementById("text2").value);
+                if (number1 > number2) {
+                    for (let count = number1; count >= number2; count--) {
+                document.getElementById("info").innerText += count + "\n";
+                    }
+                } else {
+                    for (let count = number1; count <= number2; count++) {
+                document.getElementById("info").innerText += count + "\n";
+                    }  
+                }        
+            }
+        
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,30 @@
+<html>
+    <body>
+        <p id="text"></p>
+        <script>
+            let letters = new Array(7);
+            let animals = new Array(7);
+            createLetters();
+            
+            for (let count = 0; count < 7; count++) {
+                document.getElementById("text").innerText += letters[count] + " " + animals[count] + "\n";
+            }
+            function createLetters() {
+                letters[0] = "a";
+                animals[0] = "alligator";
+                letters[1] = "b";
+                animals[1] = "bear";
+                letters[2] = "c";
+                animals[2] = "cow";
+                letters[3] = "d";
+                animals[3] = "deer";
+                letters[4] = "e";
+                animals[4] = "eel";
+                letters[5] = "f";
+                animals[5] = "fox";
+                letters[6] = "g";
+                animals[6] = "goat";
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<html>
+    <body>
+        <button type="button" onclick="showAll();">
+        Show all 
+        </button>
+
+        <button type="button" onclick="watchedMovie();">
+        Watched 
+        </button>
+
+        <button type="button" onclick="wishList();">
+        Wish list 
+        </button>
+
+        <p id="info"></p>
+        <script>
+            let movies = new Array(5);
+            let watched = new Array(5);
+            start();
+            
+            function wishList() {
+                document.getElementById("info").innerText = ""
+                for (let count = 0; count < 5; count++) {
+                    if (watched[count] == false) {
+                        
+                        document.getElementById("info").innerText += movies[count] + "\n";
+                    }
+                }
+            }
+
+            function watchedMovie() {
+                document.getElementById("info").innerText = ""
+                for (let count = 0; count < 5; count++) {
+                    if (watched[count] == true) {
+                        document.getElementById("info").innerText += movies[count] + "\n";
+                    }
+                }
+            }
+            function showAll() {
+                document.getElementById("info").innerText = ""
+                for (let count = 0; count < 5; count++) {
+                    document.getElementById("info").innerText += movies[count] + "\n";
+                }
+            }
+
+            function start() {
+                movies[0] = "Far from home" 
+                watched[0] = true;
+                movies[1] = "homecoming"
+                watched[1] = true;
+                movies[2] = "civil war" 
+                watched[2] = true;
+                movies[3] = "the impossible"
+                watched[3] = false;
+                movies[4] = "cherry"
+                watched[4] = false;
+            }
+        </script>
+    </body>
+</html>

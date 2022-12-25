@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <label for="width">
+            Width:
+        </label>
+        <input type="text" id="width" />
+        <p></p>
+        </label for="length">
+            Length:
+        </label>
+        <input type="text" id="length" />
+        <button type="button" onclick="calculatePerimeter();">
+            Calculate Perimeter
+        </button>
+        
+        <script>
+            
+            function calculatePerimeter() {
+                let textBox1 = document.getElementById('width').value;
+                let textBox2 = document.getElementById("length").value;
+                if (isNaN(textBox1) == false && isNaN(textBox2) == false && textBox1 >= 0 && textBox2 >= 0){
+                    let width = Number(document.getElementById('width').value);
+                    let length = Number(document.getElementById("length").value);
+                
+                    let sum = width * 2 + length * 2;
+                    alert(sum.toFixed(3));
+                }
+            }
+        </script>
+    </body>
+</html>

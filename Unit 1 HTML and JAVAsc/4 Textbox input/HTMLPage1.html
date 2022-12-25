@@ -1,0 +1,30 @@
+﻿<html>
+    <body>`
+        <label for="username">
+            Username:
+        </label>
+        <input type="text" id="username" />
+
+        <button type="button" onclick="welcomeUser();">
+            Login
+        </button>
+        <p id="message"></p>
+        <script>
+            let username;
+
+
+
+            function welcomeUser() {
+                let paragraph = document.getElementById('message');
+
+                let textbox = document.getElementById('username');
+
+                username = textbox.value;
+
+                paragraph.innerText = "welcome " + username + "!"
+            }
+
+
+        </script>
+    </body>
+</html>

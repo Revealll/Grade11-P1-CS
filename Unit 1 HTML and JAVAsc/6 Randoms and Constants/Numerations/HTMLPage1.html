@@ -1,0 +1,35 @@
+﻿<html>
+    <body>
+        <h1 id="move"></h1>
+
+        <script>
+            //create my ennumberation
+            //Ennumberate the different enemey moves
+            const NORMAL_ATTACK = 0;
+            const SPECIAL_ATTACK = 1;
+            const MAGIC_ATTACK = 2;
+            const HEAL = 3;
+            //create timer that runs every 5.5 s so the computer chooses random moves
+            setInterval(chooseMove, 5500)
+
+            //chooses a random move and shows it to the user
+            function chooseMove() {
+                // create a random number between 0 and 3
+                let theMove = Math.floor(Math.random() * 4);
+                //choose the correct message based of the move chosen
+                if (theMove == NORMAL_ATTACK) {
+                    document.getElementById('move').innerText = "computer does a normal attack"
+                }
+                else if (theMove == SPECIAL_ATTACK) {
+                    document.getElementById('move').innerText = "computer does a special attack"
+                }
+                else if (theMove == MAGIC_ATTACK) {
+                    document.getElementById('move').innerText = "computer does a magic attack"
+                }
+                else {
+                    document.getElementById('move').innerText = "computer heals"
+                }
+            }
+        </script>
+    </body>
+</html>

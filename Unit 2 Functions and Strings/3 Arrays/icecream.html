@@ -1,0 +1,73 @@
+<html>
+    <body>
+        <h2 id="allFlavours"></h2>
+        <button type="button" id="vanilla" onclick="buyVanilla();">
+            Buy Vanilla Flavour 
+        </button>
+        <button type="button" id="chocolate" onclick="buyChocolate();">
+            Buy Chocolate Flavour 
+        </button>
+        <button type="button" id="mango" onclick="buyMango();">
+            Buy Mango Flavour 
+        </button>
+        <p id="currentFlavour"></p>
+        <script>
+            let flavours = new Array(3);
+            let price = new Array(3);
+            let sold = new Array(3);
+            
+            
+            
+            
+            start();
+            function start() {
+                createFlavours();
+                printFlavours();
+                printValue();
+            }
+            function buyVanilla() {
+                sold[0] = sold[0] + 1;
+                printFlavours();
+                printValue();
+
+            }
+            function buyChocolate() {
+                sold[1] = sold[1] + 1;
+                printFlavours();
+                printValue();
+            }
+            function buyMango() {
+                sold[2] = sold[2] + 1;
+                printFlavours();
+                printValue();
+            }
+
+            function createFlavours() {
+                flavours[0] = "Vanilla";
+                price[0] = 2;
+                sold[0] = 0;
+                flavours[1] = "Chocolate";
+                price[1] = 2.50;
+                sold[1] = 0;
+                flavours[2] = "Mango";
+                price[2] = 3;
+                sold[2] = 0;
+                
+
+            }
+            function printFlavours() {
+                document.getElementById("allFlavours").innerText = 
+                    "FLAVOURS" + "\n" + 
+                    "Flavour: " + flavours[0] + ":" + " Price: " + price[0] + " Sold: " + sold[0] + "\n" + 
+                    "Flavour: " + flavours[1] + ":" + " Price: " + price[1] + " Sold: " + sold[1] + "\n" + 
+                    "Flavour: " + flavours[2] + ":" + " Price: " + price[2] + " Sold: " + sold[2];
+            }
+            function printValue() {
+                document.getElementById("currentFlavour").innerText = "Total Value of Icecream: " + ((sold[0] * price[0]) + (sold[1] * price[1]) + (sold[2] * price[2])) + " Total Sold: " + (sold[0] + sold[1] + sold[2]);
+            }
+            function printCurrentFlavour() {
+
+            }
+        </script>
+    </body>
+</html>

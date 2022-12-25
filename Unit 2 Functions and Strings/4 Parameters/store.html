@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <button type="button" onclick="bubbleTea();">
+            Bubble Tea $7
+        </button>
+        <button type="button" onclick="waffle();">
+            Waffle $5 
+        </button>
+        <button type="button" onclick="combo();">
+            Combo $11
+        </button>
+        <p id="tax"></p>
+        <script>
+            // calculate the tax
+            function calculateTax(price) {
+                document.getElementById("tax").innerText = "$"+(price*1.13).toFixed(2);
+            }
+            // calculate tax of bubble tea
+            function bubbleTea() {
+                calculateTax(7);
+            }
+            // calculate tax of a waffle
+            function waffle() {
+                calculateTax(5);
+            }
+            // calculate the tax of a combo
+            function combo() {
+                calculateTax(11);
+            }
+        </script>
+    </body>
+</html>

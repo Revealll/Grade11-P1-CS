@@ -1,0 +1,51 @@
+<html> 
+    <body>
+        <button type="button" onclick="buyBubbleTea();">
+            Buy Bubble Tea $7
+        </button>
+       
+        <button type="button" onclick="buyWaffle();">
+            Buy Waffle $5
+        </button>
+       
+        <button type="button" onclick="calculateTax(5) + calculateTax(7);">
+            Buy Combo $11
+        </button>
+        <p id="amount"></p>
+        <script>
+            const P_AMOUNT = document.getElementById("amount");
+            
+            const PRICE_BUBBLE_TEA = 7;
+            const PRICE_WAFFLE = 5;
+            // track the subtotal -- the base price of all the items
+            let subtotal = 0;
+            // track the total amount of taxes
+            let taxes = 0;
+            // buy one more buble tea
+            function buyBubbleTea() {
+                buyItem(PRICE_BUBBLE_TEA);
+            }
+            // buy one moer waffle
+            function buyWaffle() {
+                buyItem(PRICE_WAFFLE);
+            }
+            // buy any item given its price as a parameter
+            function buyItem(price) {
+                // add to subtotal
+                subtotal = subtotal + price;
+                // calculate taxes and add to the total tax
+                taxes = taxes + calculateTax(price);
+
+                P_AMOUNT.innerText = "Subtotal: $" + subtotal
+                    + "\nTaxes: $" + taxes + "\nTotal: $" + (subtotal  + taxes);
+            }
+            // calculate 13% tax
+            function calculateTax(price) {
+                return price * 0.13.toFixed(2);
+            }
+            
+
+        </script>
+    </body>
+
+</html>

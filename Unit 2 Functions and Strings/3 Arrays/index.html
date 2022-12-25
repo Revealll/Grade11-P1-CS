@@ -1,0 +1,52 @@
+<html>
+    <body>
+        <img id="currentPic" />
+
+        <p></p>
+
+        <button type="button" onclick="nextPicture();">
+            Next 
+        </button>
+
+        <script>
+            // store all image filenames
+            let imageFileNames = new Array(3);
+            let imageText = new Array(3);
+            // this variable will keep track of which image index is being shown to the user
+           let currentImageIndex = 0;
+           // start up functions
+            loadImageNames();
+            showImage();
+
+            function nextPicture() {
+                if (currentImageIndex < imageFileNames.length - 1) {
+                    currentImageIndex = currentImageIndex + 1;
+                    
+                }
+                else {
+                    currentImageIndex = 0;
+                }
+                showImage();
+                // increase index by 1 to go to next pic
+            }
+            // shows the image given by currentImageIndex in the <img> tag
+            function showImage() {
+                let imageTag = document.getElementById("currentPic");
+                // get the <img> tag from the html
+                imageTag.src = imageFileNames[currentImageIndex];
+                imageTag.width = 400;
+                imageTag.height = 300;
+
+                    alert("Index is " + currentImageIndex);
+            }
+
+            
+            function loadImageNames() {
+                imageFileNames[0] = "elon1.jpg";
+                imageFileNames[1] = "elon2.jpg";
+                
+            }
+            
+        </script>
+    </body>
+</html>

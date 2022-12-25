@@ -1,0 +1,45 @@
+<html>
+    <body>
+        <label for="length">Length: </label>
+        <input type="text" id="length" />
+       
+        <p></p>
+       
+        <label for="width">Width: </label>
+        <input type="text" id="width" />
+       
+        <p></p>
+
+        <button type="button" onclick="calculateArea();">
+            Area
+        </button>
+
+        <p id="answer"></p>
+
+        <script>
+            // calculates area of a rectangle
+            function calculateArea() {
+
+                // make sure that the user typed 2 numbers in the textboxes
+                if (isNaN(document.getElementById('length').value) == false &&
+                    isNaN(document.getElementById('width').value) == false)
+                {
+
+                    // get the 2 lengths from user input
+                    let length = Number(document.getElementById('length').value);
+                    let width = Number(document.getElementById('width').value);
+
+                    // calculate the area
+                    let area = length * width;
+
+                    // print area in <p>
+                    document.getElementById('answer').innerText = area + " units^2";
+                }
+                // if there is an error, notify user
+                else {
+                    alert("Numbers only");
+                }
+            }
+        </script>
+    </body>
+</html>

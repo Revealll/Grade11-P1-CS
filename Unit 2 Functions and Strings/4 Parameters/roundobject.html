@@ -1,0 +1,50 @@
+<html>
+    <body>
+        <label for="textbox"> Radius: </label>
+        <input type="text" id="textbox" />
+        <button type="button" onclick="calculateAll();">
+            Calculate All 
+        </button>
+        <p id="dia"></p>
+        <br>
+        <p id="area"></p>
+        <br>
+        <p id="circum"></p>
+        <br>
+        <p id="surface"></p>
+        <br>
+        <p id="volume"></p>
+        <script>
+            
+            function calculateAll() {
+                // perameter being the value of textbox
+                calculateDiameter(Number(document.getElementById("textbox").value));
+                calculateArea(Number(document.getElementById("textbox").value));
+                calculateCircumference(Number(document.getElementById("textbox").value));
+                calculateSurfaceArea(Number(document.getElementById("textbox").value));
+                calculateVolume(Number(document.getElementById("textbox").value));
+                
+            }
+            // calculate the diameter
+            function calculateDiameter(r) {
+                document.getElementById("dia").innerText = "The Diameter of a circle with the radius of " + r + " is " + 2 * r;
+            }
+            // calculate the area
+            function calculateArea(r) {
+                document.getElementById("area").innerText = "The area of a circle with the radius of " + r + " is " + (3.14 * r * r);
+            }
+            // calculate the circumference
+            function calculateCircumference(r) {
+                document.getElementById("circum").innerText = "The Circumference of a circle with the radius of  " + r + " is " + (2 * 3.14 * r );
+            }
+            // calculate the surface area
+            function calculateSurfaceArea(r) {
+                document.getElementById('surface').innerText = "The surface area of a sphere with a radius of " + r + " is " + (4 * 3.14 * r * r);
+            }
+            // calculate the volume
+            function calculateVolume(r) {
+                document.getElementById('volume').innerText = "The volume of a sphere with a radius of " + r + " is " + (4/3 * 3.14 * r * r * r);
+            }
+        </script>
+    </body>
+</html>

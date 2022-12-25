@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <h2 id="gameText"></h2>
+        <script>
+            let games = new Array(5);
+            // program begins
+            start();
+
+            function start() {
+                createGames();
+                printGames();
+            }
+            function createGames() {
+                games[0] = "Valorant - PC";
+                games[1] = "League Of Legends - PC";
+                games[2] = "OSU - PC";
+                games[3] = "NBA 2K - XBOX";
+                games[4] = "Blade Idle - MOBILE";
+            }
+
+            function printGames() {
+                document.getElementById('gameText').innerText = 
+                    "1." + games[0] + "\n" + 
+                    "2." + games[1] + "\n" + 
+                    "3." + games[2] + "\n" +
+                    "4." + games[3] + "\n" +
+                    "5." + games[4];
+            }
+        </script>
+    </body>
+</html>

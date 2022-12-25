@@ -1,0 +1,113 @@
+<html>
+    <body>
+        <h2 id="allCharacters"></h2>
+       
+        <button type="button" id="btnBack" onclick="showPreviousCharacter();">
+            Back
+        </button>
+        
+        <button type="button" id="btnFoward" onclick="showNextCharacter();">
+            Foward
+        </button>
+       
+        <button type="button" id="btnSelect" onclick="selectCharacter();">
+            Select
+        </button>
+        
+        <button type="button" id="btnSelectRandom" onclick="selectRandomCharacter();">
+            Random Select 
+        </button>
+
+        <p id="selectedCharacter"></p>
+        <p id="currentCharacter"></p>
+        <script>
+            // store the HTML elements in constants to reduce errors
+            const P_ALL_CHARACTERS = document.getElementById("allCharacters");
+            const P_CURRENT_CHARACTER = document.getElementById("currentCharacter");
+            const P_SELECTED_CHARACTER = document.getElementById('selectedCharacter');
+            // use to size the arrays
+            const NUMBER_OF_HEROS = 5;
+            // store hero names and related information
+            let names = new Array(NUMBER_OF_HEROS);
+            let specialPowers = new Array(NUMBER_OF_HEROS);
+            let timesSelected = new Array(NUMBER_OF_HEROS);
+            // used to store which character was selected
+            let selectedIndex;
+            // used to store which character is in the selected index
+            let currentIndex = 0;
+            //program begins
+            start();
+           
+            // START function -- called when the program begins
+            function start() {
+                createCharacters();
+                printCharacters();
+                printCurrentCharacter();
+            }
+           // assign array elements to create the heros
+            function createCharacters() {
+                names[0] = "Black Panther";
+                names[1] = "Black Widow";
+                names[2] = "Captain Marvel";
+                names[3] = "Iron Man";
+                names[4] = "Thor";  
+                specialPowers[0] = "Super Strength";
+                specialPowers[1] = "Super Agility";
+                specialPowers[2] = "Intergalatic Strength";
+                specialPowers[3] = "Money";
+                specialPowers[4] = "Hammer";
+            }
+            function selectRandomCharacter() {
+                //create a random index in the valid range of 0 to nameslength - 1
+                currentIndex = Math.floor(Math.random() * names.length);
+
+                printCurrentCharacter();
+                selectCharacter();
+            }
+            // selects the current character for the user
+            function selectCharacter() {
+                // save the index that the user is currently looking at
+                selectedIndex = currentIndex;
+
+
+                printSelectedCharacter();
+            }
+            // print the selected character
+            function printSelectedCharacter() {
+                P_SELECTED_CHARACTER.innerText = "Selected Character: " + names[selectedIndex];
+            }
+            // print the current characters
+            function printCurrentCharacter() {
+                P_CURRENT_CHARACTER.innerText = "Current Character:" + names[currentIndex] + " -" + specialPowers[currentIndex];
+            }
+            // shows the next character
+            function showNextCharacter() {
+                // only go to the next character if not at the end
+                if (currentIndex < names.length - 1) {
+                    currentIndex = currentIndex + 1;
+                }
+                printCurrentCharacter();
+            }
+            // shows the previous character
+            function showPreviousCharacter() {
+                if (currentIndex > 0) {
+                    // to back in the array by decreasing the index by 1
+                    currentIndex = currentIndex - 1;
+                }
+                printCurrentCharacter();
+            }
+            
+
+            // print all the characters that can be selected
+            function printCharacters() {
+                P_ALL_CHARACTERS.innerText = 
+                    "1." + names[0] + "\n" + 
+                    "2." + names[1] + "\n" + 
+                    "3." + names[2] + "\n" +
+                    "4." + names[3] + "\n" +
+                    "5." + names[4];
+                    
+            }
+        </script>
+    <body>
+<html>

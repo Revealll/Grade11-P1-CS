@@ -1,0 +1,68 @@
+<html>
+    <body>
+        <h1>
+            PLAYER
+        </h1>
+        <p id="player"></p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1>
+            COMPUTER
+        </h1>
+        <p id="computer"></p>
+        <script>
+            
+            start();
+            function start() {
+                createUniqueCards();
+            }
+            function createUniqueCards() {
+                let card = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+
+                let player1 = new Array(3);
+                let computer1 = new Array (3);
+                
+
+                let numChosen = 0;
+                while (numChosen < 3) {
+                    let anIndex = Math.floor(Math.random() * card.length);
+
+                    let alreadyChosen = false;
+
+                    for (let i = 0; i < numChosen; i++) {
+                        if (player1[i] == anIndex) {
+                            alreadyChosen = true;
+                            break;
+                    }
+                 }
+                    if (alreadyChosen == false) {
+                        player1[numChosen] = anIndex;
+
+                        numChosen++
+                    }
+                }
+                
+                numChosen = 0;
+                while (numChosen < 3) {
+                    let anIndex = Math.floor(Math.random() * card.length);
+                    let alreadyChosen = false;
+
+                    for (let i = 0; i < numChosen; i++) {
+                        if (player1[0] == anIndex || player1[1] == anIndex && player1[2] == anIndex || computer1[i] == anIndex) {
+                            alreadyChosen = true;
+                            break;
+                        }
+                    }
+                    if (alreadyChosen == false) {
+                        computer1[numChosen] = anIndex;
+                        numChosen++
+                    }
+                }           
+                document.getElementById("player").innerText = "1. " + card[player1[0]] + "\n" + "2. " + card[player1[1]] + "\n" + "3. " + card[player1[2]];
+                document.getElementById("computer").innerText = "1. " + card[computer1[0]] + "\n" + "2. " + card[computer1[1]] + "\n" + "3. " + card[computer1[2]]; 
+            }
+        </script>
+    </body>
+</html>

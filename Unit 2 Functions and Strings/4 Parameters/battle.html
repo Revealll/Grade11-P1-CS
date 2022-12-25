@@ -1,0 +1,83 @@
+<html>
+    <body>
+        <p id="p2Info"></p>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <p id="p1Info"></p>
+        <button type="button" id="btnAttack" onclick="attackPlayer(COMPUTER);">
+            Attack!
+        </button>
+
+
+        <script>
+            // constants to make coding the paragraphs easier
+            const P_PLAYER1 = document.getElementById("p1Info");
+            const P_PLAYER2 = document.getElementById("p2Info");
+            const BTN_ATTACK = document.getElementById("btnAttack")           
+             // constants to identify which array index each player will be
+            const HUMAN = 0;
+            const COMPUTER = 1;
+            // arrays to store each player's info
+            const NUM_PLAYERS = 2;
+            let health = new Array(NUM_PLAYERS);
+            let names = new Array(NUM_PLAYERS);
+            let paragraphs = new Array(NUM_PLAYERS);
+            // store the AI's timer so that it can be shut off when game over
+            let aiTimer;
+
+            // assign player information
+            start();
+            // what happens when the program starts
+            function start() {
+                createPlayers();
+
+                showPlayerInfo(HUMAN);
+                showPlayerInfo(COMPUTER);
+                // the computer moves every 2 seconds
+                // we save the timer so that it can be shut down later
+                aiTimer = setInterval(artificial, 2000)
+            }
+            function createPlayers() {
+                health[HUMAN] = 40;
+                names[HUMAN] = "Canada"
+                paragraphs[HUMAN] = P_PLAYER1
+
+                health[COMPUTER] = 40;
+                names[COMPUTER] = "Belgium"
+                paragraphs[COMPUTER] = P_PLAYER2;
+            }
+            // checks if theHealth is less than or equal to 0, if it is, end the game
+            function checkGameOver(theHealth) {
+                if (theHealth <= 0) {
+                    alert("Game Over!");
+                    BTN_ATTACK.disabled = true;
+
+                    //turn off the AI timer
+                    clearInterval(aiTimer)
+                }
+            }
+            // attack the player located at playerIndex in the player array
+            function attackPlayer(playerIndex) {
+                // attacks the player
+                health[playerIndex] = health[playerIndex] - 10;
+                showPlayerInfo(playerIndex);
+                checkGameOver(health[playerIndex]);
+            }
+            // show a players info in their own UI paragraph
+            function showPlayerInfo(playerIndex) {
+                paragraphs[playerIndex].innerText = names[playerIndex] + ":" + health[playerIndex];
+            }
+            // control the computer moves
+            function artificial() {
+                attackPlayer(HUMAN);
+            }
+        </script>
+    </body>
+</html>

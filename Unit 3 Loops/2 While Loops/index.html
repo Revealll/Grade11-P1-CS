@@ -1,0 +1,84 @@
+<html>
+    <body>
+        
+        <h1 id="numbers"></h1>
+        <script>
+            
+            // program begins here
+            start();
+            // start up function calls
+            function start() {
+                createUniqueWord();
+            }
+            // creates and prints out 3 unqiue numbers between
+            // 1 and 5 without repeats
+            function createUniqueNumbers() {
+                // stores the 3 unique numbers
+                // example, numbers could be "153", which means it is storing the numbers 1, 5, and 3
+                let numbers = "";
+                // keep making numbers until we have 3 unique ones
+                // we know there are 3 numbers if the length of numbers is equal to 3. If it's length is less than 3, then we need 
+                // to keep making new ones.
+                while (numbers.length < 3) {
+                    // make a random number between 1 and 5
+                    let aNumber = Math.floor(Math.random() * 5) + 1;
+
+                    // now check if aNumber has already been created
+                    if (numbers.indexOf(aNumber) == -1) {
+                        // if it has not been created, then indexOf will return -1
+                        // that means I can add it to numbers
+                        numbers += aNumber;
+                    }
+                }
+                // print ouf the 3 numbers. I will use my string like an array
+                document.getElementById("numbers").innerText = 
+                    numbers[0] + "\n" + numbers[1] + "\n" + numbers[2];
+            }
+
+            function createUniqueWord() {
+                let word = 
+                    ['lmfao', 'kekw', 'pog', 'lol', 'lmao', 'uwu', 'meow', 'senpai', 'kohai', 'owo']
+                // store the indice of chosen words
+                let chosen = new Array(3);
+                // count how many words have been chosen
+                let numChosen = 0;
+
+                while (numChosen < 3) {
+                    //chose a random array index
+                    let anIndex = Math.floor(Math.random() * word.length);
+
+                    //using a boolean variable to see if the index was already chosen
+                    let alreadyChosen = false;
+
+                    // search the chosen array to see if it was already used
+                    for (let i = 0; i < numChosen; i++) {
+                        // if the random index we just made is already in the chosen array, then we
+                        // 'flag' it is already being there
+                        if (chosen[i] == anIndex) {
+                            alreadyChosen = true;
+                            break;
+                        }
+                    }
+                    // after my counting loop searches, I check my 'flag'
+                    // if the alreadyChosen flag is true, I do not add the random number to the array
+                    // otherwise, i do add it
+                    if (alreadyChosen == false) {
+                        // add the random number to my chosen array
+                        chosen[numChosen] = anIndex;
+
+                        // increase my number chosen by 1
+                        numChosen++
+                    }
+                }
+                // the loop exits after 3 unique indices have been chosen
+                // now, we print out the 3 chosen words
+                document.getElementById("numbers").innerText = 
+                    "1." + word[chosen[0]] + "\n" +
+                    "2." + word[chosen[1]] + "\n" +
+                    "3." + word[chosen[2]];
+            }
+
+            
+        </script>
+    </body>
+</html>

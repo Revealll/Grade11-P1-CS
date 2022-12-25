@@ -1,0 +1,28 @@
+﻿<html>
+    <body>
+        <button type="button" id ="likeButton" onclick="showLikes();">
+            Likes
+        </button>
+                
+        <script src="Scripts/math.js"></script>
+    </body>
+</html>
+
+if (numChosen == 3) {
+    numChosen = 0;
+}
+while (numChosen < 3) {
+    let anIndex = Math.floor(Math.random() * card.length);
+    let alreadyChosen = false;
+
+    for (let i = 0; i < numChosen; i++) {
+        if (player1[0] || player1[1] || player1[2] || computer1[i] == anIndex) {
+            alreadyChosen = true;
+            break;
+        }
+    }
+        if (alreadyChosen == false) {
+            computer[numChosen] = anIndex;
+            numChosen++
+        }
+}

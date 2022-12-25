@@ -1,0 +1,53 @@
+﻿<html>
+<body>
+    <h1>
+        WELCOME TO MASSAGE MAYHEM
+    </h1>
+    <p></p>
+
+    <label for="username">
+        Username:
+    </label>
+    <input type="text" id="userName" />
+
+    <label for="password">
+        Password:
+    </label>
+    <input type="text" id="passWord" />
+
+    <button type="button" onclick="logIn();">
+        Log In
+    </button>
+    <p id="text"></p>
+<script>
+       
+let rightUsername = 'AN';
+let rightPassword = 'ZH';
+// allows them to log in with the right password and username
+function logIn() {
+    //Gets the value of the username textbox
+    let username = document.getElementById('userName');
+    //Gets the vlue of the password textbox
+    let password = document.getElementById('passWord');
+    //Checks if its the right login
+    let name = username.value;
+    if (name == rightUsername) {
+        name = password.value;
+    } else {
+        let paragraph = document.getElementById('text')
+        paragraph.innerText = "WRONG LOGIN TRY AGAIN"
+    }
+        if (name == rightPassword) {
+            location.href = "help.html";
+        }
+    else {
+        paragraph = document.getElementById('text')
+        paragraph.innerText = "WRONG LOGIN TRY AGAIN"
+    }
+        
+}
+</script>
+    
+    
+</body>
+</html>

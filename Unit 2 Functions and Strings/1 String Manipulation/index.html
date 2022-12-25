@@ -1,0 +1,74 @@
+<html>
+    <body>
+        <label for="textbox">Test String: </label>
+        <input type="text" id="textbox" />
+        <p></p>
+        <button type="button" onclick="checkAllCaps();">
+            Check for All Caps
+        </button>
+
+        <button type="button" onclick="checkAllSmall();">
+        Check for no caps
+        </button>
+
+        <button type="button" onclick="printUpTo10Chars();">
+            Print first 10 characters
+        </button>
+
+        <button type="button" onclick="last10Chars();">
+            Print last 10 characters
+        </button>
+
+        <script>
+            // prints up to the first 10 characters
+
+            function last10Chars() {
+                let input = document.getElementById('textbox').value;
+
+                let preview;
+
+                if (input.length > 10) {
+                    preview = input.substr(input.length - 10, 10);
+                }
+                else {
+                    preview = input;
+                }
+                alert(preview);
+            }
+            function printUpTo10Chars() {
+                let input = document.getElementById('textbox').value
+                let preview;
+                
+                if(input.length > 10)
+
+                    preview = input.substring(0, 10);
+                else {
+                    preview = input;
+                }
+
+                alert(preview);
+            }
+    
+            function checkAllSmall() {
+                let input = document.getElementById('textbox').value;
+
+                let inputLowerCase = input.toLowerCase();
+
+                if (input == inputLowerCase) {
+                    alert('You are calm.');
+                }
+
+            }
+            // check if the user wrote in all capital letters
+            function checkAllCaps() {
+                // get what the user typed into the textbox
+                let input = (document.getElementById('textbox').value).trim();
+                t = true;
+                // compare the original input vs. the all caps input
+                if (t == true ) {
+                    alert(input);
+                }
+            }
+        </script>
+    </body>
+</html>

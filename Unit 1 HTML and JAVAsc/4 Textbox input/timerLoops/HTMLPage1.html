@@ -1,0 +1,23 @@
+﻿ <html>   
+    <body>
+
+        <script>
+            setInterval(sayBoo, 5000)
+            function sayBoo() {
+                alert("BOO!");
+
+            }
+            setInterval(increaseLikes, 1000)
+            let likes = 0;
+            function increaseLikes() {
+                likes = likes + 1;
+                let button = document.getElementById('likeButton')
+                button.innerText = "Likes:" + likes;
+            }
+                
+        </script>
+        <button type="button" id="likeButton" onclick="increaseLikes();">
+            Likes
+        </button>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<html>
+    <body>
+        <p id="allCharacters"></p>
+
+        <script>
+            // store the HTML elements in constants to reduce errors
+            const P_ALL_CHARACTERS = document.getElementById("allCharacters");
+            // use to size the arrays
+            const NUMBER_OF_HEROS = 5;
+            // store hero names
+            let names = new Array(NUMBER_OF_HEROS);
+           
+            //program begins
+            start();
+           
+            // START function -- called when the program begins
+            function start() {
+                createCharacters();
+                printCharacters();
+            }
+           // assign array elements to create the heros
+            function createCharacters() {
+                names[0] = "Black Panther";
+                names[1] = "Black Widow";
+                names[2] = "Captain Marvel";
+                names[3] = "Iron Man";
+                names[4] = "Thor";  
+            }
+            
+            // print all the characters that can be selected
+            function printCharacters() {
+                P_ALL_CHARACTERS.innerText = 
+                    "1." + names[0] + "/n" + 
+                    "2." + names[1] + "/n" + 
+                    "3." + names[2] + "/n" +
+                    "4." + names[3] + "/n" +
+                    "5." + names[4];
+            }
+        </script>
+    <body>
+<html>
