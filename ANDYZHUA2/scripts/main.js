@@ -49,6 +49,8 @@ let normalTimer;
 let specialTimer;
 // store the update timer so it can be shut off later
 let updateTimer;
+// store the enable special timer so it can be shut off later
+let specialButtonTimer;
 // assign select character information
 start();
 updateTimer = setInterval(update, 20);
@@ -58,7 +60,13 @@ function start() {
     createWords();
     displayCharacter(CHARACTER_ONE);
     showImage();
-    
+    // checks which index is the computers, by using opposite index
+    if (currentIndex == 0) {
+        oppositeIndex = 1;
+    }
+    else {
+        oppositeIndex = 0;
+    } 
 }   
 // it checks for input of the textbox when needed
 function update() {
@@ -86,7 +94,7 @@ function typeChecker() {
     let text = TYPE.value;
     // Checks each input to see if it matches the word, puts words needed and correct letters when needed
     if (text == 0) {
-        TYPED.innerText = "Correct Letters: "
+        TYPED.innerText = "Correct Letters: ";
         LEFT.innerText = "Letters Needed: " + firstLetter + backWord;
     }
     if (firstLetter == text) {
@@ -100,6 +108,7 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
     if (letter2 == text) {
@@ -112,6 +121,7 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
     if (letter3 == text) {
@@ -124,6 +134,7 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
     if (letter4 == text) {
@@ -136,6 +147,7 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
     if (letter5 == text) {
@@ -148,6 +160,7 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
     if (letter6 == text) {
@@ -160,6 +173,7 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
     if (letter7 == text) {
@@ -172,6 +186,7 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
     if (letter8 == text) {
@@ -184,6 +199,7 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
     if (letter9 == text) {
@@ -196,6 +212,7 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
     if (letter10 == text) {
@@ -208,6 +225,7 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
     if (text.substring(0, 10) == letter9 && text.length == 10 && text.substring(9, 10) != letter10 && attackIndex == 1) {
@@ -216,9 +234,10 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
-    // checks if the input matches the current word chosen, does attacks if it is right
+    // checks if the input matches the current word chosen, does attacks if it is right and clears everything   
     if (text == currentWord) {
         normalAttack(oppositeIndex);
         specialAttack(oppositeIndex);
@@ -228,11 +247,13 @@ function typeChecker() {
         TYPED.innerText = "";
         LEFT.innerText = "";
         TYPE.disabled = true;
+        NORMAL.disabled = false;
         selectedValue = 0;
     }
 }
 // creates a word for normal attack
 function createWordNormal() {
+    TYPE.value = "";
     // values set to let the webpage know you are attacking and it is a normal attack
     selectedValue = 1;
     attackIndex = 0;
@@ -241,9 +262,11 @@ function createWordNormal() {
     WORD.innerText = "Type " + currentWord;
     // enables the textbox
     TYPE.disabled = false;
+    
 }
 // creates a word for special attack
 function createWordSpecial() {
+    TYPE.value = "";
     // values set to let the webpage know you are attacking and it is a special attack
     selectedValue = 1;
     attackIndex = 1;
@@ -255,13 +278,14 @@ function createWordSpecial() {
     // disables the special attack button
     SPECIAL.disabled = true;
     // timer to enable the button for 15 seconds after pressed
-    setInterval(enableSpecial, 15000);
-    
+    specialButtonTimer = setInterval(enableSpecial, 15000); 
 }
+
 // enables the special attack button
 function enableSpecial() {
     SPECIAL.disabled = false;
 }
+
 // creates a random number and returns it
 function createRandom(min, max) {
     randomNumber = Math.floor(Math.random()*max) + min;
@@ -273,6 +297,7 @@ function getStringFront(string) {
     let result = string.substring(0, 1);
     return result; 
 }
+
 // gets everything but the first letter of the string
 function getStringBack(string) {
     let result2 = string.substring(1, string.length);
@@ -283,15 +308,8 @@ function getStringBack(string) {
 function normalAttack(input) {
     // checks if it is a normal or special attack
     if (attackIndex == 0) {
-        // checks which index is the computers, by using opposite index
-        if (currentIndex == 0) {
-                oppositeIndex = 1;
-            }
-            else {
-                oppositeIndex = 0;
-            } 
             // attack is a random number done between ranges depending on the index of word chosen
-            health[input] = health[input] - (Math.floor(Math.random() * (normal[currentIndex] * (randomNumber + 2) / 2)) + normal[currentIndex]);
+            health[input] = health[input] - (Math.floor(Math.random() * ((normal[currentIndex] * (randomNumber + 2) / 2) - normal[currentIndex])) + normal[currentIndex]);
             showPlayerInfo();
             // checks if hp is 0 for any user
             checkGameOver();
@@ -299,17 +317,10 @@ function normalAttack(input) {
 }
 // normal attack for the computer
 function computerNormal() {
-    // checks which index is the computers, by using opposite index
-    if (currentIndex == 0) {
-        oppositeIndex = 1;
-    }
-    else {
-        oppositeIndex = 0;
-    }
     // creates a random number for the attacks
     let randomNum = Math.floor(Math.random() * 20); 
     // attack is a random number done between ranges depending on random number chosen
-    health[currentIndex] = health[currentIndex] - (Math.floor(Math.random() * (normal[oppositeIndex] * (randomNum + 2)/2)) + normal[oppositeIndex]); 
+    health[currentIndex] = health[currentIndex] - (Math.floor(Math.random() * ((normal[oppositeIndex] * (randomNum + 2) / 2) - normal[oppositeIndex])) + normal[oppositeIndex]); 
     showPlayerInfo();
     // checks if hp is 0 for any user
     checkGameOver();
@@ -321,41 +332,25 @@ function computerAutoNormal() {
 }
 // special attack for the computer
 function computerSpecial() {
-    // check which index is the computers, by using opposite index
-    if (currentIndex == 0) {
-        oppositeIndex = 1;
-    }
-    else {
-        oppositeIndex = 0;
-    }
     // creates a random number for the attacks
     let randomNum = Math.floor(Math.random() * 20); 
     // attack is a random number done between ranges depending on random number chosen
-    health[currentIndex] = health[currentIndex] - (Math.floor(Math.random() * (special[oppositeIndex] * (randomNum + 2)/2)) + special[oppositeIndex]); 
+    health[currentIndex] = health[currentIndex] - (Math.floor(Math.random() * ((special[oppositeIndex] * (randomNum + 2)/2) - special[oppositeIndex])) + special[oppositeIndex]); 
     showPlayerInfo();
     // checks if hp is 0 for any user
     checkGameOver();
 }
-
 // special attack for the user
 function specialAttack(input) {
     // checks if it is a normal or special attack
     if (attackIndex == 1) {
-        // checks which index is the computers, by using opposite index
-        if (currentIndex == 0) {
-                oppositeIndex = 1;
-            }
-            else {
-                oppositeIndex = 0;  
-            } 
             // attack is a random number done between ranges depending on the index of word chosen
-            health[input] = health[input] - (Math.floor(Math.random() * (special[currentIndex] * (randomNumber + 2) / 2)) + special[currentIndex]);
+            health[input] = health[input] - (Math.floor(Math.random() * ((special[currentIndex] * (randomNumber + 2) / 2) - special[currentIndex])) + special[currentIndex]);
             showPlayerInfo();
             // checks if hp is 0 for any user
             checkGameOver();
         }
 }
- 
 // shows gamescreen and info for each player
 function selectCharacter() {
     gameScreen();
@@ -461,6 +456,7 @@ function checkGameOver() {
         clearInterval(normalTimer);
         clearInterval(specialTimer);
         clearInterval(updateTimer);
+        clearInterval(specialButtonTimer);
     }
     if (health[CHARACTER_TWO] <= 0) {
         alert("Game Over!");
@@ -473,9 +469,10 @@ function checkGameOver() {
         clearInterval(normalTimer);
         clearInterval(specialTimer);
         clearInterval(updateTimer);
+        clearInterval(specialButtonTimer);
     }
 }
-// create the words for the type racer
+// create the words 
 function createWords() {
     words[0] = "to";
     words[1] = "hi";
