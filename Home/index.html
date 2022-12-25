@@ -1,0 +1,152 @@
+<html>
+    <body>
+        <button type="button" onclick="linearSearch2(numbers, 'm')">
+            Sum Array 
+        </button>
+        <p id="text"></p>
+
+        <script> 
+            let numbers = new Array(5);
+            let email = new Array(5);
+
+            createNumbers();
+           
+            function sumArray(theArray) {
+                let theSum = 0;
+
+                for (i = 0; i < theArray.length; i++) {
+                    theSum += Number(theArray[i]);
+                }
+                return theSum;
+            }
+
+            function findIndexOfMaximum(theArray) {
+                let maxIndex = 0;
+                let maxNumber = 0;
+                for( let i = 0; i < theArray.length; i++) {
+                    if (theArray[i] > maxNumber) {
+                        maxNumber = Number(theArray[i]);
+                        maxIndex = i;
+                    }
+                }
+                
+                return maxIndex
+            }
+
+            function findSecondLargestValue(theArray) {
+                let largest;
+                let secondLargest;
+
+                if (theArray[0] > theArray[1]){
+                    largest = theArray[0];
+                    secondLargest = theArray[1];
+                }
+                else{
+                    largest = theArray[1];
+                    secondLargest = theArray[0];
+                }
+
+                for (let  i = 2; i < theArray.length; i++) {
+                    if (theArray[i] > largest) {
+                        secondLargest = largest
+                        largest = theArray[i];
+                    }
+                    if (theArray[i] > secondLargest && theArray[i] < largest) {
+                        secondLargest = theArray[i];                    
+                    }
+                } 
+                return secondLargest
+            }
+
+            function calculateMean(theArray){
+            
+                let theSum = 0;
+                let count = 0;
+                let mean;
+                for (let i = 0; i < theArray.length; i++){
+                    if (theArray[i] > 0) {
+                        theSum += Number(theArray[i]);
+                        count += 1
+                    }
+                }
+                mean = theSum / count;
+                return mean;
+            }
+
+            function arrayCopy(theArray){
+                    
+                let copy = new Array(theArray.length);
+
+                for (i = 0; i < theArray.length; i++) {
+                    copy[i] = theArray[i]
+                    
+                }
+                return copy;
+            }
+
+            function linearSearch1(theArray, valueToFind){
+                let mSearch;
+                for (let i = 0; i < theArray.length; i++) {
+                    theArray[i] = theArray[i].toString();
+                    if(theArray[i].indexOf(valueToFind) != -1 ){
+                        mSearch = theArray[i]
+                             
+                    } 
+                   return mSearch;
+                }
+                
+            }
+            function linearSearch2(theArray, valueToFind) { 
+                for (let i = 0; i < theArray.length; i++) {
+                    if (theArray[i] == valueToFind) {
+                        return i;
+                    }
+                }
+            }
+            function arrayResize(theArray){
+                let newArray = new Array(theArray.length + 1);
+
+                for (i = 0; i < theArray.length; i++) {
+                    newArray[i] = theArray[i]
+
+                }
+                return document.getElementById('text').innerText = newArray[4];
+            } 
+
+
+            function parallelSearch1(emails, names){
+                // count how many people with the name "M" have been found
+                let matchesFound = 0;
+                let match = new Array(names.length);
+                for ( let i = 0; i < names.length; i++){
+                    if (names[i] == "M"){
+                        match[matchesFound] = emails[i]
+                        matchesFound++;
+                    }
+                }
+                // stores all emails of people whose name is "M"
+                let matchingEmails = new Array(matchesFound);
+                // copy all emails of those whose name is "M" into the matchingEmails array
+                for (let i = 0; i < matchingEmails.length; i++){
+                    matchingEmails[i] = match[i]
+                    document.getElementById("text").innerText += matchingEmails[i] + "\n"
+                }
+            }
+           
+
+            function createNumbers() {
+                numbers[0] = "Moo";
+                numbers[1] = "a";
+                numbers[2] = "Moooo";
+                numbers[3] = "a";
+                numbers[4] = "m";
+                email[0] = "uwu";
+                email[1] = "@gmail";
+                email[2] = "ok";
+                email[3] = "dont talk";
+                email[4] = "maximus";
+            }
+        </script>
+
+    </body>
+</html>
