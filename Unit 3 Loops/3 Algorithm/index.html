@@ -1,6 +1,6 @@
 <html>
     <body>
-        <button type="button" onclick="linearSearch2(numbers, 'm')">
+        <button type="button" onclick="deleteElement(numbers, 4)">
             Sum Array 
         </button>
         <p id="text"></p>
@@ -132,14 +132,76 @@
                     document.getElementById("text").innerText += matchingEmails[i] + "\n"
                 }
             }
-           
+
+            function parallelSearch2(emails, names) {
+                let matchesFound = 0;
+                let match = new Array(names.length);
+                for ( let i = 0; i < names.length; i++){
+                    if (names[i] == "M"){
+                        match[matchesFound] = i;
+                        matchesFound++;
+                    }
+                }
+
+                // stores all indexes of people whose name is "M"
+                let matchingEmails = new Array(matchesFound);
+                // copy all emails of those whose name is "M" into the matchingEmails array
+                for (let i = 0; i < matchingEmails.length; i++){
+                    matchingEmails[i] = match[i]
+                    document.getElementById("text").innerText += matchingEmails[i] + "\n"
+                }
+            }
+            
+            function rightShift(theArray) {
+                for (let i = theArray.length; i >= 1; i--){
+                    theArray[i - 1] = theArray[i - 2];
+                }
+                document.getElementById("text").innerText = theArray;
+            }
+
+            function arrayInsertion(theArray, newData, index){
+ 
+                let newArray = new Array(theArray.length + 1);
+                for (i = 0; i < theArray.length; i++) {
+                    newArray[i] = theArray[i];
+                }
+
+                for (let i = newArray.length; i >= index + 1; i--) {
+                    newArray[i - 1] = theArray[i - 2];
+                }
+                    newArray[index] = newData
+                    document.getElementById("text").innerText = newArray;
+
+                }
+
+            function leftShift(theArray) {
+                for (let i = 0; i < theArray.length; i++){
+                    theArray[i] = theArray[i + 1];
+                    
+                }
+                document.getElementById("text").innerText = theArray;
+            }
+            
+            function deleteElement(theArray, index) {
+                let newArray = new Array(theArray.length - 1);
+                for (i = 0; i < theArray.length; i++) {
+                    newArray[i] = theArray[i];
+                }
+
+                for (let i = index; i < newArray.length; i++){
+                    newArray[i] = theArray[i + 1];
+                    
+                }
+                document.getElementById("text").innerText += newArray;
+            }
+
 
             function createNumbers() {
-                numbers[0] = "Moo";
-                numbers[1] = "a";
-                numbers[2] = "Moooo";
-                numbers[3] = "a";
-                numbers[4] = "m";
+                numbers[0] = "a";
+                numbers[1] = "b";
+                numbers[2] = "c";
+                numbers[3] = "d";
+                numbers[4] = "e";
                 email[0] = "uwu";
                 email[1] = "@gmail";
                 email[2] = "ok";
