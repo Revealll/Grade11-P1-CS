@@ -1,0 +1,73 @@
+<html>
+    <body>
+        <h1>
+            POKEDEX
+        </h1>
+        <h2 id="welcome"></h2>
+        <label for="username" id="username">
+            Username:
+        </label>
+        <input type="text" id="user" />
+    
+        <label for="password" id="password">
+            Password:
+        </label>
+        <input type="text" id="pass" />
+
+        <button type="button" id="logIn" onclick="logIn();">
+            Log In
+        </button>
+        <p id="wrong"></p>
+
+        <label for="add" id="labelSearch" hidden="true">
+            Search Monster
+        </label>
+        <input type="text" id="search" hidden="true">
+        <button type="button" id="searchButton" onclick="search();" hidden="true">
+            Search Monster
+        </button>
+        <br>
+        <br>
+        <label for="partialSearch" id="labelPartial" hidden="true">
+            Partial Search Monster
+        </label>
+        <input type="text" id="partial" hidden="true">
+        <button type="button" id="partialButton" onclick="partialSearch();" hidden="true">
+            Partial Search Monster
+        </button>
+        <br>
+        <br>
+        <label for="add" id="labelAdd" hidden="true">
+            Add Monster
+        </label>
+        <input type="text" id="add" hidden="true">
+        <button type="button" id="addButton" onclick="addMonster();" hidden="true">
+            Add Monster 
+        </button>
+        <br>
+        <br>
+        <label for="type" id="labelType" hidden="true";>
+            Search Type
+        </label> 
+        <input type="text" id="type" hidden="true">
+        <button type="button" id="typeButton" onclick="searchType();" hidden="true">
+            Type
+        </button>
+    
+        <h4 id="sort"></h4>
+        <button type="button" id="decrease" onclick="sortDecrease();" hidden="true">
+            Decreasing 
+        </button>
+        <button type="button" id="increase" onclick="sortIncrease();" hidden="true">
+            Increasing 
+        </button>
+
+        <h4 id="lowHp"></h4>
+        <button type="button" id="low" onclick="lowHpSearch();" hidden="true";>
+            Low Hp 
+        </button>
+        <h3 id="pokedex"></h3>
+        <script src="scripts/main.js"></script>
+    </body>
+</html>
+    
