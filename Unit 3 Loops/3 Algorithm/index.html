@@ -1,16 +1,29 @@
 <html>
     <body>
-        <button type="button" onclick="deleteElement(numbers, 4)">
+        <button type="button" onclick="sum();">
             Sum Array 
         </button>
         <p id="text"></p>
 
         <script> 
-            let numbers = new Array(5);
+            let numbers = new Array(10);
             let email = new Array(5);
 
             createNumbers();
-           
+            
+            function sum() {
+                let temp;
+                for (let i = 0; i < numbers.length; i++) {
+                    for (let l = 0; l < numbers.length; l++) {
+                        if (numbers[i] < numbers[l]) {
+                            temp = numbers[i];
+                            numbers[i] = numbers[l]
+                            numbers[l] = temp;
+                        }
+                    }
+                } 
+                document.getElementById("text").innerText = numbers;
+            }
             function sumArray(theArray) {
                 let theSum = 0;
 
@@ -197,11 +210,16 @@
 
 
             function createNumbers() {
-                numbers[0] = "a";
-                numbers[1] = "b";
-                numbers[2] = "c";
-                numbers[3] = "d";
-                numbers[4] = "e";
+                numbers[0] = 60;
+                numbers[1] = 50;
+                numbers[2] = 45;
+                numbers[3] = 55;
+                numbers[4] = 70;
+                numbers[5] = 100;
+                numbers[6] = 40;
+                numbers[7] = 80;
+                numbers[8] = 35;
+                numbers[9] = 65;
                 email[0] = "uwu";
                 email[1] = "@gmail";
                 email[2] = "ok";

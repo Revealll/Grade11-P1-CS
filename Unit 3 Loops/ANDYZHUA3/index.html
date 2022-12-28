@@ -23,7 +23,7 @@
             Search Monster
         </label>
         <input type="text" id="search" hidden="true">
-        <button type="button" id="searchButton" onclick="search();" hidden="true">
+        <button type="button" id="searchButton" onclick="nameSearch(I_SEARCH.value);" hidden="true">
             Search Monster
         </button>
         <br>
@@ -32,16 +32,28 @@
             Partial Search Monster
         </label>
         <input type="text" id="partial" hidden="true">
-        <button type="button" id="partialButton" onclick="partialSearch();" hidden="true">
+        <button type="button" id="partialButton" onclick="partialSearch(I_PARTIAL.value);" hidden="true">
             Partial Search Monster
         </button>
         <br>
         <br>
-        <label for="add" id="labelAdd" hidden="true">
-            Add Monster
+        <h4 id="addMonster"></h4>
+        <label for="add" id="labName" hidden="true">
+            Monster Name
         </label>
-        <input type="text" id="add" hidden="true">
-        <button type="button" id="addButton" onclick="addMonster();" hidden="true">
+        <input type="text" id="addName" hidden="true">
+        
+        <label for="add" id="labHealth" hidden="true">
+            Monster Health
+        </label>
+        <input type="text" id="addHealth" hidden="true">
+
+        <label for="add" id="labType" hidden="true">
+            Monster Type
+        </label>
+        <input type="text" id="addType" hidden="true">
+        
+        <button type="button" id="addButton" onclick="addMonster(I_ADDN.value, I_ADDH.value, I_ADDT.value);" hidden="true">
             Add Monster 
         </button>
         <br>
@@ -50,7 +62,7 @@
             Search Type
         </label> 
         <input type="text" id="type" hidden="true">
-        <button type="button" id="typeButton" onclick="searchType();" hidden="true">
+        <button type="button" id="typeButton" onclick="searchType(I_TYPE.value);" hidden="true">
             Type
         </button>
     

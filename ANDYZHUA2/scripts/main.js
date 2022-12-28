@@ -1,3 +1,19 @@
+function searchType(theArray, valueToFind) {
+    let matchesFound = 0;
+    let match = new Array(theArray.length);
+    for ( let i = 0; i < theArray.length; i++){
+        if (type[i] == valueToFind){
+            match[matchesFound] = "Name: " + monsterName[i] + " | " + " Health: " + healthPoints[i] +  " | " + " Type: " + type[i] + "\n" + "\n";
+            matchesFound++;
+        }
+    }
+    H_POKEDEX.innerText = ""
+    let matchingType = new Array(matchesFound);
+    for (let i = 0; i < matchingType.length; i++){
+        matchingType[i] = match[i];
+        H_POKEDEX.innerText += matchingType[i];
+    }
+}
 // constants to make coding the character selection easier
 const P_CHARACTER_LIST = document.getElementById('characterList');
 const P_PICTURE = document.getElementById('picture');
@@ -110,10 +126,13 @@ function typeChecker() {
         TYPE.disabled = true;
         NORMAL.disabled = false;
         selectedValue = 0;
+        
     }
     if (letter2 == text) {
         TYPED.innerText = "Correct Letters: " + letter2;
         LEFT.innerText = "Letters Needed: " + backWord.slice(1);
+        letter2.disabled = true;
+        letter2.hidden = true;
     }
     else if (text.substring(0, 1) == firstLetter && text.length == 2 && text.substring(1, 2) != letter2 && attackIndex == 1) {
         TYPE.value = "";
