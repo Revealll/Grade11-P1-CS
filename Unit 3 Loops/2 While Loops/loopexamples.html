@@ -50,7 +50,7 @@
                     let alreadyChosen = false;
 
                     for (let i = 0; i < numChosen; i++) {
-                        if (player1[0] == anIndex || player1[1] == anIndex && player1[2] == anIndex || computer1[i] == anIndex) {
+                        if (player1[0] == anIndex && player1[1] == anIndex && player1[2] == anIndex && computer1[i] == anIndex) {
                             alreadyChosen = true;
                             break;
                         }

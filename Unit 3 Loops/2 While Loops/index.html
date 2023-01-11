@@ -2,6 +2,23 @@
     <body>
         
         <h1 id="numbers"></h1>
+
+        <br>
+        <br>
+        <br>
+
+        <h1>
+            PLAYER
+        </h1>
+        <p id="player"></p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h1>
+            COMPUTER
+        </h1>
+        <p id="computer"></p>
         <script>
             
             // program begins here
@@ -9,6 +26,7 @@
             // start up function calls
             function start() {
                 createUniqueWord();
+                createUniqueCards();
             }
             // creates and prints out 3 unqiue numbers between
             // 1 and 5 without repeats
@@ -76,6 +94,35 @@
                     "1." + word[chosen[0]] + "\n" +
                     "2." + word[chosen[1]] + "\n" +
                     "3." + word[chosen[2]];
+            }
+
+            function createUniqueCards(){
+                let card = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+                let playerHand = new Array(3);
+                let computerHand = new Array(3);
+                let chosenIndexes = new Array(6);
+                let numChosen = 0;
+                
+                while (numChosen < 6){
+                    let index = Math.floor(Math.random() * card.length);
+                    let alreadyChosen = false;
+
+                    for (let i = 0; i < numChosen; i++){
+                        if (chosenIndexes[i] == index){
+                            alreadyChosen = true;
+                            break;
+                        }
+                    }
+
+                    if (alreadyChosen == false){
+                        chosenIndexes[numChosen] = index;
+                        numChosen++;
+                    }
+
+                        document.getElementById("player").innerText = "1. " + card[chosenIndexes[0]] + "\n" + "2. " + card[chosenIndexes[1]] + "\n" + "3. " + card[chosenIndexes[2]];
+
+                        document.getElementById("computer").innerText = "1. " + card[chosenIndexes[3]] + "\n" + "2. " + card[chosenIndexes[4]] + "\n" + "3. " + card[chosenIndexes[5]];
+                }
             }
 
             

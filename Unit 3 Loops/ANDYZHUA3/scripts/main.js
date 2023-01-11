@@ -1,9 +1,12 @@
+//how to do partial search, array[i].replace
+
 // constants for the login html, to make coding easier
 const L_USERNAME = document.getElementById("username");
 const L_PASSWORD = document.getElementById("password");
 const I_USERNAME = document.getElementById("user");
 const I_PASSWORD = document.getElementById("pass");
 const B_LOGIN = document.getElementById("logIn");
+const B_LOGOUT = document.getElementById("logOut");
 // constants for the written texts to make coding easier
 const H_POKEDEX = document.getElementById("pokedex");
 const H_WELCOME = document.getElementById('welcome');
@@ -11,6 +14,8 @@ const H_SORT = document.getElementById("sort");
 const H_HP = document.getElementById("lowHp");
 const H_ADD = document.getElementById("addMonster");
 const P_WRONG = document.getElementById("wrong");
+// constant for the original pokedex button
+const B_POKEDEX = document.getElementById("poke");
 // constants for the search to make coding easier
 const L_SEARCH = document.getElementById("labelSearch");
 const I_SEARCH = document.getElementById("search");
@@ -23,25 +28,27 @@ const B_PARTIAL = document.getElementById("partialButton");
 const L_ADDN = document.getElementById("labName");
 const L_ADDH = document.getElementById("labHealth");
 const L_ADDT = document.getElementById("labType");
+const L_ADDI = document.getElementById("labIndex");
 const I_ADDN = document.getElementById("addName");
 const I_ADDH = document.getElementById("addHealth");
 const I_ADDT = document.getElementById("addType");
+const I_ADDI = document.getElementById("addIndex");
 const B_ADD = document.getElementById("addButton");
 // constants for the increase and decrease buttons to make coding easier
 const B_DECREASE = document.getElementById("decrease");
 const B_INCREASE = document.getElementById("increase");
-// constants for the search type to make coding easier
+// constants for the search monsterType to make coding easier
 const L_TYPE = document.getElementById("labelType");
-const I_TYPE = document.getElementById("type");
+const I_TYPE = document.getElementById("typeSearch");
 const B_TYPE = document.getElementById("typeButton");
 // constant for the low hp to make coding easier
 const B_LOW = document.getElementById("low");
 // constant for the original amount of monsters in the pokedex
 const ORIGINAL_MONSTERS = 10;
 // arrays to store monster info
-let monsterName = new Array(ORIGINAL_MONSTERS);
-let healthPoints = new Array(ORIGINAL_MONSTERS);
-let type = new Array(ORIGINAL_MONSTERS);
+let monsterName = ['Pikachu', 'Charmander', 'Squirtle', 'Bulbasaur', 'Greninja', 'Snorlax', 'Eevee', 'Raikou', 'Shaymin', 'Arcanine'];
+let healthPoints = [60, 50, 45, 55, 70, 100, 35, 80, 35, 65]
+let monsterType = ['Electric', 'Fire', 'Water', 'Grass', 'Water', 'Normal', 'Normal', 'Electric', 'Grass', 'Fire']
 // these varibles keeps track of the guest login
 let guestUsername = 'guest';
 let guestPassword = 'monster';
@@ -51,35 +58,42 @@ let trainerPassword = "pass";
 // these varibles keep track of the professor login
 let professorUsername = "professor";
 let professorPassword = "4321";
-
+// varibles to keep track of which account you are on
+let guest = 0;
+let trainer = 0;
+let professor = 0;
 // checks if you logged in correct and which profile you are
 function logIn() {
     // checks if you are the guest
     if (I_USERNAME.value == guestUsername && I_PASSWORD.value == guestPassword) {
+        // tracks that you are the guest
+        guest++
+        // shows the logout button
+        B_LOGOUT.hidden = false;
         // shows a text welcoming the guest
         H_WELCOME.innerText = "WELCOME GUEST";
-        // creates the monsters for the pokedex
-        createMonsters();
         // hides the login when you sucessfully log in
         hideLogIn();
         // creates the pokedex
-        pokedex();
+        pokedex(monsterName, healthPoints, monsterType);
     // checks if you are the trainer
     } else if (I_USERNAME.value == trainerUsername && I_PASSWORD.value == trainerPassword) {
+        // tracks that you are the trainer
+        trainer++
         // shows a text welcoming the trainer
         H_WELCOME.innerText = "WELCOME TRAINER";
-        createMonsters();
         hideLogIn();
-        pokedex();
+        pokedex(monsterName, healthPoints, monsterType);
         // shows the trainer profile
         trainerProfile();
     // checks if you are the professor
     } else if (I_USERNAME.value == professorUsername && I_PASSWORD.value == professorPassword) {
+        // tracks that you are the professor
+        professor++
         // shows a text welcoming the professor
         H_WELCOME.innerText = "WELCOME PROFESSOR";
-        createMonsters();
         hideLogIn();
-        pokedex();
+        pokedex(monsterName, healthPoints, monsterType);
         // shows the professor profile
         professorProfile();
     } else {
@@ -90,23 +104,24 @@ function logIn() {
     }
 }
 
-function searchType(valueToFind) {
+function searchType(theArray, valueToFind) {
     // varible to check for the matches found
     let matchesFound = 0;
     // clears the error message if there was one previously
     P_WRONG.innerText = "";
     // array to check for matches
-    let match = new Array(type.length);
-    // checks if each type matches the user input
-    for ( let i = 0; i < type.length; i++) {
-        if (type[i] == valueToFind) {
+    let match = new Array(theArray.length);
+    // checks if each monsterType matches the user input
+    for ( let i = 0; i < theArray.length; i++) {
+        if (theArray[i] == valueToFind) {
             // adds the information of the index to the local array
-            match[matchesFound] = "Name: " + monsterName[i] + " | " + " Health: " + healthPoints[i] +  " | " + " Type: " + type[i] + "\n" + "\n";
+            
+            match[matchesFound] = "Name: " + monsterName[i] + " | " + " Health: " + healthPoints[i] +  " | " + " Type: " + monsterType[i] + "\n" + "\n";
             // increase matchesFound by one if a match was found
             matchesFound++;
         }
     }
-    // checks if there is a match found
+    // if there is a match found, add it to the pokedex
     if (matchesFound > 0) {
         // removes the pokedex
         H_POKEDEX.innerText = "";
@@ -126,29 +141,31 @@ function searchType(valueToFind) {
     I_TYPE.value = "";
 }
 
-function lowHpSearch() {
+function lowHpSearch(theArray) {
     // varible to check if there are more than one monster with the lowest hp
     let matchesFound = 0;
     // varible to check for the lowest hp monster
     let smallestHp;
     // removes the pokedex
     H_POKEDEX.innerText = "";
+    // removes the error text if there was one
+    P_WRONG.innerText = "";
     // array to check for matches
-    let match = new Array(healthPoints.length);
+    let match = new Array(theArray.length);
     // assume the first element is the smallest to start
-    smallestHp = healthPoints[0];
+    smallestHp = theArray[0];
     // start from 2nd element because the 1st element is already used
-    for (i = 1; i < healthPoints.length; i++) {
+    for (i = 1; i < theArray.length; i++) {
         // if the current array element is smaller than the smallest, then current element becomes the new smallest
-        if (smallestHp > healthPoints[i]) {
-            smallestHp = healthPoints[i];
+        if (smallestHp > theArray[i]) {
+            smallestHp = theArray[i];
         }
     }
     // checks if there is more than one element that is the same hp as the smallest 
-    for (i = 0; i < healthPoints.length; i++) {
+    for (i = 0; i < theArray.length; i++) {
         // if there is one, adds the information of the index to the local array
-        if (smallestHp == healthPoints[i]) {
-            match[matchesFound] = "Name: " + monsterName[i] + " | " + " Health: " + healthPoints[i] +  " | " + " Type: " + type[i] + "\n" + "\n";
+        if (smallestHp == theArray[i]) {
+            match[matchesFound] = "Name: " + monsterName[i] + " | " + " Health: " + healthPoints[i] +  " | " + " Type: " + monsterType[i] + "\n" + "\n";
             // increases matchesFound by one if there was a match found
             matchesFound++
         }
@@ -168,7 +185,11 @@ function lowHpSearch() {
 
 
 // sorts pokedex from highest to lowest health points
-function sortDecrease() {
+function sortDecrease(theArray, theArray2, theArray3) {
+    // copy of the arrays which will be sorted instead of the original
+    let copyName = [theArray.length];
+    let copyHealth = [theArray2.length];
+    let copyType = [theArray3.length];
     // creates local varibles to switch the indexes around to sort
     let temp;
     let temp1;
@@ -177,33 +198,46 @@ function sortDecrease() {
     H_POKEDEX.innerText = "";
     // clears error message if there was one previously
     P_WRONG.innerText = "";
+
+    // copys the original array into the copy
+    for (let i = 0; i < theArray.length; i++) {
+        copyName[i] = theArray[i];
+        copyHealth[i] = theArray2[i];
+        copyType[i] = theArray3[i];
+    }
     // get an index of the array
-    for (let i = 0; i < healthPoints.length; i++) {
+    for (let i = 0; i < theArray2.length; i++) {
         // loop that checks if the given index is smaller or bigger than every other index
-        for (let l = 0; l < healthPoints.length; l++) {
+        for (let l = 0; l < theArray2.length; l++) {
             // checks if given index is bigger than the current index, if so, switch indexes around
-            if (healthPoints[i] > healthPoints[l]) {
+            if (copyHealth[i] > copyHealth[l]) {
                 // saves the index to the varible
-                temp = healthPoints[i];
-                temp1 = type[i];
-                temp2 = monsterName[i];
+                temp = copyHealth[i];
+                temp1 = copyName[i];
+                temp2 = copyType[i];
                 // replaces the given index with the current index
-                healthPoints[i] = healthPoints[l];
-                monsterName[i] = monsterName[l];
-                type[i] = type[l];
+                copyHealth[i] = copyHealth[l];
+                copyName[i] = copyName[l];
+                copyType[i] = copyType[l];
                 // replaces the current index with the varible that contains the given index
-                healthPoints[l] = temp;
-                type[l] = temp1;
-                monsterName[l] = temp2;
+                copyHealth[l] = temp;
+                copyName[l] = temp1;
+                copyType[l] = temp2;
             }
         }
     }
-    // shows the new pokedex
-    pokedex();
+    // shows the copy of the updated pokedex
+    for (let i = 0; i < copyName.length; i++) {
+        H_POKEDEX.innerText += "Name: " + copyName[i] + " | " + " Health: " + copyHealth[i] +  " | " + " Type: " + copyType[i] + "\n" + "\n";
+    }
 }
 
 // sorts pokedex from lowest to highest health points
-function sortIncrease() {
+function sortIncrease(theArray, theArray2, theArray3) {
+    // copy of the arrays which will be sorted instead of the original
+    let copyName = [theArray.length];
+    let copyHealth = [theArray2.length];
+    let copyType = [theArray3.length];
     // creates local varibles to switch the indexes around to sort
     let temp;
     let temp1;
@@ -212,107 +246,119 @@ function sortIncrease() {
     H_POKEDEX.innerText = "";
     // clears error message if there was one previously
     P_WRONG.innerText = "";
+    // copys the original array into the copy
+    for (let i = 0; i < theArray.length; i++) {
+        copyName[i] = theArray[i];
+        copyHealth[i] = theArray2[i];
+        copyType[i] = theArray3[i];
+    }
+    
     // get an index of the array
-    for (let i = 0; i < healthPoints.length; i++) {
+    for (let i = 0; i < theArray2.length; i++) {
         // loop that checks if the given index is smaller or bigger than every other index
-        for (let l = 0; l < healthPoints.length; l++) {
+        for (let l = 0; l < theArray2.length; l++) {
             // checks if given index is smaller than the current index, if so, switch indexes around
-            if (healthPoints[i] < healthPoints[l]) {
+            if (copyHealth[i] < copyHealth[l]) {
                 // saves the index to the varible
-                temp = healthPoints[i];
-                temp1 = monsterName[i];
-                temp2 = type[i];
+                temp = copyHealth[i];
+                temp1 = copyName[i];
+                temp2 = copyType[i];
                 // replaces the given index with the current index
-                healthPoints[i] = healthPoints[l]
-                monsterName[i] = monsterName[l];
-                type[i] = type[l];
+                copyHealth[i] = copyHealth[l]
+                copyName[i] = copyName[l];
+                copyType[i] = copyType[l];
                 // replaces the current index with the varible that contains the given index
-                healthPoints[l] = temp;
-                monsterName[l] = temp1;
-                type[l] = temp2;
+                copyHealth[l] = temp;
+                copyName[l] = temp1;
+                copyType[l] = temp2;
             }
         }
     }
-    // shows the new pokedex
-    pokedex();
+    // shows the copy of the updated pokedex
+    for (let i = 0; i < copyName.length; i++) {
+        H_POKEDEX.innerText += "Name: " + copyName[i] + " | " + " Health: " + copyHealth[i] +  " | " + " Type: " + copyType[i] + "\n" + "\n";
+    }
 }
 
 // allows user to add a monster to the pokedex
-function addMonster(newData1, newData2, newData3) {
+function addMonster(newData1, newData2, newData3, index) {
     // local arrays which have an extra space for the new monster information
     let newName = [monsterName.length + 1];
     let newHealth = [healthPoints.length + 1];
-    let newType = [type.length + 1];
-    // removes the current pokedex
-    H_POKEDEX.innerText = "";
+    let newType = [monsterType.length + 1];
     // clears error message if there was one previously
     P_WRONG.innerText = "";
     // checks if the user inputted in the textboxes and if the format is correct
-    if (I_ADDH.value.length > 0 && I_ADDN.value.length > 0 && I_ADDT.value.length > 0 && (isNaN(I_ADDH.value) == false)) {
+    if (I_ADDH.value.length > 0 && I_ADDN.value.length > 0 && I_ADDT.value.length > 0 && I_ADDI.value.length <= monsterName.length && (isNaN(I_ADDI.value) == false && (isNaN(I_ADDH.value) == false))) {
+        // removes the current pokedex
+        H_POKEDEX.innerText = " ";
         // copys the original array into the local array
         for (let i = 0; i < monsterName.length; i++) {
             newName[i] = monsterName[i];
         }
         // shifts everything to the right to make the first array empty
-        for (let i = newName.length + 1; i >= 1; i--) {
+        for (let i = newName.length + 1; i >= index + 1; i--) {
             newName[i - 1] = monsterName[i - 2];
         }
         // input what the user typed into the first array
-        newName[0] = newData1;
+        newName[index] = newData1;
         // makes the orignal array have the new array information
         monsterName = newName;
         
         for (let i = 0; i < healthPoints.length; i++) {
             newHealth[i] = healthPoints[i];
         }
-        for (let i = newHealth.length + 1; i >= 1; i--) {
+        for (let i = newHealth.length + 1; i >= index + 1; i--) {
             newHealth[i - 1] = healthPoints[i - 2];
         }
-        newHealth[0] = newData2;
+        newHealth[index] = newData2;
         healthPoints = newHealth;
         
-        for (let i = 0; i < type.length; i++) {
-            newType[i] = type[i];
+        for (let i = 0; i < monsterType.length; i++) {
+            newType[i] = monsterType[i];
         }
-        for (let i = newType.length + 1; i >= 1; i--) {
-            newType[i - 1] = type[i - 2];
+        for (let i = newType.length + 1; i >= index + 1; i--) {
+            newType[i - 1] = monsterType[i - 2];
         }
-        newType[0] = newData3;
-        type = newType;
+        newType[index] = newData3;
+        monsterType = newType;
+        // adds the updated pokedex
+        pokedex(monsterName, healthPoints, monsterType);
     } else {
         // if user did not input in all the textboxes or the format is wrong, show an error message
         P_WRONG.innerText = "Please insert proper formatting.";
     }
-    // adds the updated pokedex
-    pokedex(); 
     // clears the textboxes
     I_ADDH.value = "";
     I_ADDN.value = "";
     I_ADDT.value = "";
+    I_ADDI.value = "";
 }
 
 // allows the user to partially search for a monster name
-function partialSearch(valueToFind) {
+function partialSearch(theArray, valueToFind) {
     // varible to check for the matches found 
     let matchesFound = 0;
-    // removes the pokedex
-    H_POKEDEX.innerText = "";
+    
     // clears error message if there was one previously
     P_WRONG.innerText = "";
     // checks if each index contains the user input
-    for ( let i = 0; i < monsterName.length; i++) {
+    for ( let i = 0; i < theArray.length; i++) {
         // checks if the given index of the loop contains the user input
-        if (monsterName[i].indexOf(valueToFind) != -1 ){
+        if (theArray[i].indexOf(valueToFind) != -1 ){
+            matchesFound++;
+            // removes the pokedex only once if there is a match so you can add to pokedex
+            if (matchesFound == 1) {
+                H_POKEDEX.innerText = "";
+            }     
             // the pokedex will display the index and will add on if more matches are found
-            H_POKEDEX.innerText += "Name: " + monsterName[i] + " | " + " Health: " + healthPoints[i] +  " | " + " Type: " + type[i] + "\n" + "\n";
+            H_POKEDEX.innerText += "Name: " + monsterName[i] + " | " + " Health: " + healthPoints[i] +  " | " + " Type: " + monsterType[i] + "\n" + "\n";
             // increase matchesFound by one if a match was found
             matchesFound++;     
         }
     }
     // checks if matches found was 0
     if (matchesFound == 0) {
-        // shows the original pokedex
-        pokedex();
         // shows an error text that the input could not be matched with any index
         P_WRONG.innerText = "Matches not found, check spelling or errors.";
     }
@@ -321,23 +367,22 @@ function partialSearch(valueToFind) {
 }
 
 // allows the user to fully search for a monsters name
-function nameSearch(valueToFind) {
+function nameSearch(theArray, valueToFind) {
     // varible to check for the matches found
     let matchesFound = 0;
     // clears the error message if there was one previously
     P_WRONG.innerText = "";
     // array to check for matches
-    let match = new Array(monsterName.length);
+    let match = new Array(theArray.length);
     // checks if each name matches the user input
-    for ( let i = 0; i < monsterName.length; i++){
-        if (monsterName[i] == valueToFind){
-            // adds the information to the local array with the index being the amount of matches found
-            match[matchesFound] = "Name: " + monsterName[i] + " | " + " Health: " + healthPoints[i] +  " | " + " Type: " + type[i] + "\n" + "\n";
-            // increase matchesFound by one if a match was found
+    for ( let i = 0; i < theArray.length; i++){
+        if (theArray[i] == valueToFind){
             matchesFound++;
+            // adds the information to the local array with the index being the amount of matches found
+            match[matchesFound] = "Name: " + monsterName[i] + " | " + " Health: " + healthPoints[i] +  " | " + " Type: " + monsterType[i] + "\n" + "\n";
         }
     }
-    // checks if there is a match found
+    // if there is a match found, show it in the pokedex
     if (matchesFound > 0) {
         // removes the pokedex
         H_POKEDEX.innerText = "";
@@ -359,9 +404,13 @@ function nameSearch(valueToFind) {
 
 function trainerProfile() {
     // shows all the features the trainer can use
+    B_LOGOUT.hidden = false;
+    B_POKEDEX.hidden = false;
     L_ADDN.hidden = false;
     L_ADDH.hidden = false;
     L_ADDT.hidden = false;
+    L_ADDI.hidden = false;
+    I_ADDI.hidden = false;
     I_ADDN.hidden = false;
     I_ADDH.hidden = false;
     I_ADDT.hidden = false;
@@ -390,10 +439,14 @@ function professorProfile() {
 }
 
 // creates the pokedex
-function pokedex() {
+function pokedex(theArray, theArray2, theArray3) {
+    // clears the pokedex
+    H_POKEDEX.innerText = "";
+    // clears error message if there is one
+    P_WRONG.innerText = "";
     // creates the information of each monster into the pokedex
-    for (let i = 0; i < monsterName.length; i++) {
-        H_POKEDEX.innerText += "Name: " + monsterName[i] + " | " + " Health: " + healthPoints[i] +  " | " + " Type: " + type[i] + "\n" + "\n";
+    for (let i = 0; i < theArray.length; i++) {
+        H_POKEDEX.innerText += "Name: " + theArray[i] + " | " + " Health: " + theArray2[i] +  " | " + " Type: " + theArray3[i] + "\n" + "\n";
     }
 }
 
@@ -407,45 +460,63 @@ function hideLogIn() {
     P_WRONG.innerText = "";
 }
 
-// creates the original pokedex monster info
-function createMonsters() {
-    monsterName[0] = "Pikachu";
-    healthPoints[0] = 60;
-    type[0] = "Electric";
+function showLogIn() {
+    I_USERNAME.value = "";
+    I_PASSWORD.value = "";
+    L_USERNAME.hidden = false;
+    L_PASSWORD.hidden = false;
+    I_USERNAME.hidden = false;
+    I_PASSWORD.hidden = false;
+    B_LOGIN.hidden = false;
+    B_LOGOUT.hidden = true;
+    P_WRONG.innerText = "";
+    H_WELCOME.innerText = "";
+    H_POKEDEX.innerText = "";
+}
 
-    monsterName[1] = "Charmander";
-    healthPoints[1] = 50;
-    type[1] = "Fire";
+function trainerLogOut() {
+    B_LOGOUT.hidden = true;
+    B_POKEDEX.hidden = true;
+    L_ADDN.hidden = true;
+    L_ADDH.hidden = true;
+    L_ADDT.hidden = true;
+    L_ADDI.hidden = true;
+    I_ADDI.hidden = true;
+    I_ADDN.hidden = true;
+    I_ADDH.hidden = true;
+    I_ADDT.hidden = true;
+    B_ADD.hidden = true;
+    L_SEARCH.hidden = true;
+    I_SEARCH.hidden = true;
+    B_SEARCH.hidden = true;
+    B_DECREASE.hidden = true;
+    B_INCREASE.hidden = true;
+    H_ADD.innerText = "";
+    H_SORT.innerText = "";
+}
 
-    monsterName[2] = "Squirtle";
-    healthPoints[2] = 45;
-    type[2] = "Water";
+function professorLogOut() {
+    trainerLogOut();
+    L_PARTIAL.hidden = true;
+    I_PARTIAL.hidden = true;
+    B_PARTIAL.hidden = true;
+    L_TYPE.hidden = true;
+    I_TYPE.hidden = true;
+    B_TYPE.hidden = true;
+    B_LOW.hidden = true;
+    H_HP.innerText = "";
+}
 
-    monsterName[3] = "Bulbasaur";
-    healthPoints[3] = 55;
-    type[3] = "Grass";
-
-    monsterName[4] = "Greninja";
-    healthPoints[4] = 70;
-    type[4] = "Water";
-
-    monsterName[5] = "Snorlax";
-    healthPoints[5] = 100;
-    type[5] = "Normal";
-
-    monsterName[6] = "Eevee";
-    healthPoints[6] = 35;
-    type[6] = "Normal";
-    
-    monsterName[7] = "Raikou";
-    healthPoints[7] = 80;
-    type[7] = "Electric";
-
-    monsterName[8] = "Shaymin";
-    healthPoints[8] = 35;
-    type[8] = "Grass";
-
-    monsterName[9] = "Arcanine";
-    healthPoints[9] = 65;
-    type[9] = "Fire";
+function logOut() {
+    showLogIn();
+    if (guest == 1) {
+        guest--
+    } else if (trainer == 1) {
+        trainerLogOut();
+        trainer--
+    }
+    else {
+        professorLogOut();
+        professor--
+    }
 }
