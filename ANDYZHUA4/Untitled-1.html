@@ -1,0 +1,27 @@
+<html>
+<body>
+
+<h1>Show Checkboxes</h1>
+<h2 id="uwu"></h2>
+
+<input type="checkbox" id="vehicle1">
+<label for="vehicle1"> I have a bike</label><br>
+<input type="checkbox" id="vehicle2">
+<label for="vehicle2"> I have a car</label><br>
+<input type="checkbox" id="vehicle3">
+<label for="vehicle3"> I have a boat</label><br><br>
+<button type="button" onclick="ok();">
+  OK 
+</button>
+
+
+<script>
+function ok(){
+  if (document.getElementById("vehicle1").checked) {
+    document.getElementById("uwu").innerText = "yo";
+  } 
+}
+
+</script>
+</body>
+</html>

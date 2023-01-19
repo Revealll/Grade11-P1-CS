@@ -17,13 +17,23 @@
         <button type="button" id="logIn" onclick="logIn();">
             Log In
         </button>
+
+        <button type="button" id="logOut" onclick="logOut();" hidden="true">
+            Log Out 
+        </button>
+
         <p id="wrong"></p>
 
+        <button type="button" id="poke" onclick="pokedex(monsterName, healthPoints, monsterType);" hidden="true">
+            ORIGINAL POKEDEX 
+        </button> 
+        <br>
+        <br>
         <label for="add" id="labelSearch" hidden="true">
             Search Monster
         </label>
         <input type="text" id="search" hidden="true">
-        <button type="button" id="searchButton" onclick="nameSearch(I_SEARCH.value);" hidden="true">
+        <button type="button" id="searchButton" onclick="nameSearch(monsterName, I_SEARCH.value);" hidden="true">
             Search Monster
         </button>
         <br>
@@ -32,7 +42,7 @@
             Partial Search Monster
         </label>
         <input type="text" id="partial" hidden="true">
-        <button type="button" id="partialButton" onclick="partialSearch(I_PARTIAL.value);" hidden="true">
+        <button type="button" id="partialButton" onclick="partialSearch(monsterName, I_PARTIAL.value);" hidden="true">
             Partial Search Monster
         </button>
         <br>
@@ -52,8 +62,13 @@
             Monster Type
         </label>
         <input type="text" id="addType" hidden="true">
+
+        <label for="index" id="labIndex" hidden="true">
+            Index
+        </label>
+        <input type="text" id="addIndex" hidden="true">
         
-        <button type="button" id="addButton" onclick="addMonster(I_ADDN.value, I_ADDH.value, I_ADDT.value);" hidden="true">
+        <button type="button" id="addButton" onclick="addMonster(I_ADDN.value, I_ADDH.value, I_ADDT.value, Number(I_ADDI.value));" hidden="true">
             Add Monster 
         </button>
         <br>
@@ -61,25 +76,34 @@
         <label for="type" id="labelType" hidden="true";>
             Search Type
         </label> 
-        <input type="text" id="type" hidden="true">
-        <button type="button" id="typeButton" onclick="searchType(I_TYPE.value);" hidden="true">
-            Type
+        <input type="text" id="typeSearch" hidden="true"/>
+        <button type="button" id="typeButton" onclick="searchType(monsterType, I_TYPE.value);" hidden="true">
+            Search Type
         </button>
     
         <h4 id="sort"></h4>
-        <button type="button" id="decrease" onclick="sortDecrease();" hidden="true">
+        <button type="button" id="decrease" onclick="sortDecrease(monsterName, healthPoints, monsterType);" hidden="true">
             Decreasing 
         </button>
-        <button type="button" id="increase" onclick="sortIncrease();" hidden="true">
+        <button type="button" id="increase" onclick="sortIncrease(monsterName, healthPoints, monsterType);" hidden="true">
             Increasing 
         </button>
 
         <h4 id="lowHp"></h4>
-        <button type="button" id="low" onclick="lowHpSearch();" hidden="true";>
+        <button type="button" id="low" onclick="lowHpSearch(healthPoints);" hidden="true";>
             Low Hp 
         </button>
+        <h4 id="transversePoke"></h4>
+        <button type="button" id="previous" onclick="previousPokemon(monsterName);" hidden="true">
+            Previous Pokemon 
+        </button>
+        
+        <button type="button" id="next" onclick="nextPokemon(monsterName);" hidden="true">
+            Next Pokemon 
+        </button>
+
+
         <h3 id="pokedex"></h3>
         <script src="scripts/main.js"></script>
     </body>
 </html>
-    
