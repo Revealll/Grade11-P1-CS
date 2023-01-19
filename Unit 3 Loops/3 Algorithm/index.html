@@ -1,6 +1,6 @@
 <html>
     <body>
-        <button type="button" onclick="rightShift(email);">
+        <button type="button" onclick="arrayInsertion(numbers, 3, 2);">
             Sum Array 
         </button>
         <p id="text"></p>
@@ -123,7 +123,7 @@
                     newArray[i] = theArray[i]
 
                 }
-                return document.getElementById('text').innerText = newArray[4];
+                return newArray
             } 
 
 
@@ -182,9 +182,9 @@
                 for (let i = newArray.length; i >= index + 1; i--) {
                     newArray[i - 1] = theArray[i - 2];
                 }
-                    newArray[index] = newData
-                    document.getElementById("text").innerText = newArray;
-
+                    newArray[index] = newData;
+                    theArray = newArray;
+                document.getElementById("text").innerText = theArray;
                 }
 
             function leftShift(theArray) {
