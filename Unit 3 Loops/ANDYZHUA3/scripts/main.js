@@ -1,3 +1,4 @@
+
 // constants for the login html, to make coding easier
 const L_USERNAME = document.getElementById("username");
 const L_PASSWORD = document.getElementById("password");
@@ -267,31 +268,26 @@ function addMonster(newData1, newData2, newData3, currentIndex) {
         // copys the original array into the local array
         for (let i = 0; i < monsterName.length; i++) {
             newName[i] = monsterName[i];
+            newHealth[i] = healthPoints[i];
+            newType[i] = monsterType[i];
         }
+        
         // shifts everything to the right to make the first array empty
         for (let i = newName.length + 1; i >= currentIndex + 1; i--) {
             newName[i - 1] = monsterName[i - 2];
+            newHealth[i - 1] = healthPoints[i - 2];
+            newType[i - 1] = monsterType[i - 2];
         }
+        console.log(newName)
         // input what the user typed into the first array
         newName[currentIndex] = newData1;
         // makes the orignal array have the new array information
         monsterName = newName;
         
-        for (let i = 0; i < healthPoints.length; i++) {
-            newHealth[i] = healthPoints[i];
-        }
-        for (let i = newHealth.length + 1; i >= currentIndex + 1; i--) {
-            newHealth[i - 1] = healthPoints[i - 2];
-        }
+        
         newHealth[currentIndex] = newData2;
         healthPoints = newHealth;
         
-        for (let i = 0; i < monsterType.length; i++) {
-            newType[i] = monsterType[i];
-        }
-        for (let i = newType.length + 1; i >= currentIndex + 1; i--) {
-            newType[i - 1] = monsterType[i - 2];
-        }
         newType[currentIndex] = newData3;
         monsterType = newType;
         // adds the updated pokedex

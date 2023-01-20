@@ -1,5 +1,6 @@
 <html>
     <body>
+        <base target="_blank">
         <h1>
             MUSIC PLAYLIST
         </h1>
@@ -23,13 +24,21 @@
         </label>
         <input type="text" id="addLink">
 
+        <label for="song4">
+            Index Of Playlist
+        </label>
+        <input type="text" id="addIndex">
+
         <label for="favourite">
             Favourited
         </label>
         <input type="checkbox" id="favourite">
 
-        <button type="button" onclick="addSong();">
+        <button type="button" onclick="addSong(I_ADDS.value, I_ADDA.value, I_ADDL.value, I_ADDI.value);">
             Add Song To Playlist
         </button>
+        <p id="wrong"></p>
+        <h3 id="playList"></h3>
+        <script src="scripts/main.js"></script>
     </body>
 </html>
