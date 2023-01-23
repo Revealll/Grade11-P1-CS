@@ -1,0 +1,84 @@
+h1 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: rgb(25, 179, 25);
+    text-align: center;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+}
+
+body {
+    background-color: rgb(70, 70, 70);
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: xx-large;
+}
+.add {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+
+button {
+    width: 200px;
+    height: 30px;
+    background-color: green;
+    font-weight: bold;
+}
+#favourite {
+    width: 20px;
+    height: 20px;
+}
+.play {
+    margin: 0 auto;
+    display: block;
+ 
+}
+.remove {
+    font-weight: bold;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    font-size: 20px;
+}
+.search {
+    font-weight: bold;
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    font-size: 20px;
+}
+#playlist {
+    width: 900px;
+    height: 450px;
+    padding: 30px;
+    border: 10px solid black;
+    background-color: rgb(46, 56, 46);
+    color: rgb(185, 198, 198);
+}
+.sort {
+    width: 190;
+    position: relative;
+    left: 275;
+}
+.sort2 {
+    width: 190;
+    position: relative;
+    left: 470;
+}
+.fav {
+    width: 190;
+    position: relative;
+    left: 470;
+}
+.random {
+    width: 190;
+    position: relative;
+    left: 1050;
+}
+#wrong {
+    text-align: center;
+}
+

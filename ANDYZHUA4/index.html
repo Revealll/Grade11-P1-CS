@@ -4,82 +4,101 @@
         <h1>
             MUSIC PLAYLIST
         </h1>
-
-        <button type="button" onclick="showPlayList();">
+        <button class="play" type="button" onclick="showPlayList();">
             Show Full Playlist 
         </button>
+        <p id="wrong"></p>
         <h2>
             Add Song 
         </h2>
-        <label for="song1">
-            Song Name
-        </label>
-        <input type="text" id="addSong">
+        <div class="add">
+            <label for="song1">
+                Song Name
+            </label>
+            <input type="text" id="addSong">
+    
+            <label for="song2">
+                Song Artist
+            </label>
+            <input type="text" id="addArtist">
+    
+            <label for="song3">
+                Song Length
+            </label>
+            <input type="text" id="addLength">
+            <br>
+            <br>
+            <label for="song4">
+                Song Link
+            </label>
+            <input type="text" id="addLink">
+    
+            <label for="song5">
+                Index Of Playlist
+            </label>
+            <input type="text" id="addIndex">
+            <br>
+            <label for="favourite">
+                Favourited
+            </label>
+            <input type="checkbox" id="favourite">
+            <br>
+            <button type="button" onclick="addSong(I_ADDS.value, I_ADDA.value, Number(I_ADDLE.value), I_ADDL.value, Number(I_ADDI.value));">
+                Add Song To Playlist
+            </button>
+        </div>
+        <br>
+        <br>
+        <h2 class="play">
+            Play List
+        </h2>
 
-        <label for="song2">
-            Song Artist
-        </label>
-        <input type="text" id="addArtist">
 
-        <label for="song3">
-            Song Length
-        </label>
-        <input type="text" id="addLength">
+        <button class="fav" type="button" onclick="showFavourite();">
+            Show Favourites Only 
+        </button> 
 
-        <label for="song4">
-            Song Link
-        </label>
-        <input type="text" id="addLink">
-
-        <label for="song5">
-            Index Of Playlist
-        </label>
-        <input type="text" id="addIndex">
-
-        <label for="favourite">
-            Favourited
-        </label>
-        <input type="checkbox" id="favourite">
-
-        <button type="button" onclick="addSong(I_ADDS.value, I_ADDA.value, Number(I_ADDLE.value), I_ADDL.value, I_ADDI.value);">
-            Add Song To Playlist
-        </button>
-
-        <button type="button" onclick="randomizePlayList();">
+        <button class="random" type="button" onclick="randomizePlayList();">
             Randomize Playlist 
         </button>
 
-        <label for="partial">
-            Partial Search
-        </label>
-        <input type="text" id="partial">
-
-        <button type="button" onclick="partialSearch(songName, I_PARTIAL.value)">
-            Search by Song Name 
-        </button>
-
-        <button type="button" onclick="partialSearch(songArtist, I_PARTIAL.value)">
-            Search by Artist 
-        </button>
-
-        <button type="button" onclick="sortDecrease(songName, songArtist, songLength, songLink, favourite);">
+        <button class="sort" type="button" onclick="sortDecrease(songName, songArtist, songLength, songLink, favourite);">
             Sort Length By Decreasing 
         </button>
 
-        <button type="button" onclick="sortIncrease(songName, songArtist, songLength, songLink, favourite)">
+        <button class="sort2" type="button" onclick="sortIncrease(songName, songArtist, songLength, songLink, favourite)">
             Sort Length By Increasing 
         </button>
 
-        <label for="remove">
-            Remove Song By Index
-        </label>
-        <input type="text" id="remove";>
+        <h3  class="play" id="playList"></h3>
+        
 
-        <button type="button" onclick="deleteSong(Number(I_REMOVE.value));">
-            Remove Song
-        </button>
-        <p id="wrong"></p>
-        <h3 id="playList"></h3>
+        <div class="search">
+            <label for="partial">
+                Search
+            </label>
+            <input type="text" id="partial">
+    
+            <button type="button" onclick="partialSearch(songName, I_PARTIAL.value)">
+                Search by Song Name 
+            </button>
+            <button type="button" onclick="partialSearch(songArtist, I_PARTIAL.value)">
+                Search by Artist 
+            </button>
+        </div>
+
+        <div class="remove">
+            <label for="remove">
+                Remove Song By Index
+            </label>
+            <input type="text" id="remove";>
+    
+            <button type="button" onclick="deleteSong(Number(I_REMOVE.value));">
+                Remove Song
+            </button>
+        </div>
+
         <script src="scripts/main.js"></script>
+        <link rel="stylesheet" href="style.css"/>
     </body>
-</html>
+</html> 
