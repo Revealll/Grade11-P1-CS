@@ -88,6 +88,7 @@ function deleteSong(index) {
 }
 // sorts the playlist by increasing song length
 function sortIncrease(theArray, theArray2, theArray3, theArray4, theArray5) {
+    P_WRONG.innerText = "";
     // copys of the array which will be sorted instead of the original
     let copyName = [theArray.length];
     let copyArtist = [theArray2.length];
@@ -144,6 +145,7 @@ function sortIncrease(theArray, theArray2, theArray3, theArray4, theArray5) {
 }
 // sorts the playlist by decreasing song length
 function sortDecrease(theArray, theArray2, theArray3, theArray4, theArray5) {
+    P_WRONG.innerText = "";
     // copys of the array which will be sorted instead of the original
     let copyName = [theArray.length];
     let copyArtist = [theArray2.length];
@@ -292,7 +294,7 @@ function addSong(newData1, newData2, newData3, newData4, currentIndex) {
     newData4.trim();
     // checks if you have inputted the proper formatting
     if (I_ADDS.value.length > 0 && I_ADDA.value.length > 0 && (isNaN(I_ADDLE.value) == false) &&  I_ADDL.value.length > 0 && I_ADDI.value <= songName.length) {
-        // removes the playlist
+            // removes the playlist
         H_PLAY.innerText = "";
         // copys the original array into the local array
         for (let i = 0; i < songName.length; i++) {
